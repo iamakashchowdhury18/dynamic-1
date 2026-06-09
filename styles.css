@@ -1927,6 +1927,11 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
   .section {
     padding: 5rem 0 !important;
   }
@@ -1948,6 +1953,13 @@ footer {
   }
   .about-masonry-wrapper {
     margin-top: 2.5rem;
+  }
+  .masonry-img-card.img-1 {
+    height: 200px !important;
+    margin-top: 1rem !important;
+  }
+  .masonry-img-card.img-2 {
+    height: 235px !important;
   }
   .hero-globe-canvas-wrapper {
     position: absolute;

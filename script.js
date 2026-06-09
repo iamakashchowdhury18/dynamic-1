@@ -943,4 +943,48 @@ _Please review my profile details._`;
       });
     });
   }
+
+  // ==========================================================================
+  // 14. SCROLL SPY NAVIGATION HIGHLIGHTER
+  // ==========================================================================
+  const spySections = document.querySelectorAll('section[id], header[id]');
+  const desktopLinks = document.querySelectorAll('.nav-link');
+  const mobLinks = document.querySelectorAll('.mobile-link');
+
+  const scrollSpy = () => {
+    let currentId = '';
+    const scrollPosition = window.scrollY + 150; // offset to trigger slightly early
+
+    spySections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      const secTop = rect.top + window.scrollY;
+      const secHeight = rect.height;
+      if (scrollPosition >= secTop && scrollPosition < secTop + secHeight) {
+        currentId = sec.getAttribute('id');
+      }
+    });
+
+    if (!currentId && window.scrollY < 100) {
+      currentId = 'home';
+    }
+
+    desktopLinks.forEach(link => {
+      link.classList.remove('active');
+      const href = link.getAttribute('href');
+      if (href === `#${currentId}` || (currentId === 'home' && href === '#')) {
+        link.classList.add('active');
+      }
+    });
+
+    mobLinks.forEach(link => {
+      link.classList.remove('active');
+      const href = link.getAttribute('href');
+      if (href === `#${currentId}` || (currentId === 'home' && href === '#')) {
+        link.classList.add('active');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', scrollSpy);
+  scrollSpy();
 });

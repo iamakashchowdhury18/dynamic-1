@@ -5,22 +5,22 @@
    ========================================================================== */
 :root {
   /* Color Palette */
-  --bg-deep: #0A192F;          /* Deep Navy Blue */
-  --bg-darker: #050C16;        /* Slate/Navy for Footer and Subsections */
+  --bg-deep: #060B16;          /* Deep Luxury Midnight Navy */
+  --bg-darker: #03060C;        /* Rich Slate-Black Navy */
   --gold-primary: #D4AF37;     /* Champagne Gold */
   --gold-accent: #C5A880;      /* Muted Gold */
-  --gold-light: rgba(212, 175, 55, 0.15);
+  --gold-light: rgba(212, 175, 55, 0.12);
   --white: #FFFFFF;
   --text-primary: #FFFFFF;
   --text-muted: #A0AEC0;       /* Slate 400 */
-  --text-dark: #0A192F;
+  --text-dark: #060B16;
   
   /* Glassmorphism Settings */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-hover: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --glass-bg-hover: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --glass-border: rgba(255, 255, 255, 0.07);
   --glass-border-glow: rgba(212, 175, 55, 0.25);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
   --gold-glow: 0 0 20px rgba(212, 175, 55, 0.3);
 
   /* Typography */
@@ -107,6 +107,7 @@ img, svg {
   padding: 8rem 0;
   position: relative;
   border-bottom: 1px solid var(--glass-border);
+  scroll-margin-top: 115px;
 }
 
 .section-accent {
@@ -526,12 +527,36 @@ header.scrolled .nav-container {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.95)), url('assets/hero_airport_bg.png');
+  background-image: linear-gradient(rgba(6, 11, 22, 0.85), rgba(6, 11, 22, 0.95)), url('assets/hero_airport_bg.png');
   background-size: cover;
   background-position: center;
   z-index: 1;
   transform: translateY(calc(var(--hero-scroll-y, 0) * 0.4px));
   will-change: transform;
+}
+
+/* Ambient Glowing Blobs */
+.hero-glow-blob-1 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  top: 30%;
+  right: 5%;
+  pointer-events: none;
+  z-index: 2;
+}
+.hero-glow-blob-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
+  filter: blur(100px);
+  top: 10%;
+  left: 10%;
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* Golden globe container */
@@ -547,6 +572,22 @@ header.scrolled .nav-container {
   z-index: 2;
   pointer-events: auto;
   will-change: transform;
+}
+
+/* 3D Atmospheric Rim Glow Overlay */
+.hero-globe-canvas-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 86%;
+  height: 86%;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 55%, rgba(212, 175, 55, 0.08) 75%, rgba(212, 175, 55, 0) 100%);
+  box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.15), 0 0 35px rgba(212, 175, 55, 0.05);
+  pointer-events: none;
+  z-index: 3;
 }
 
 .hero-globe-canvas-wrapper canvas {
@@ -1007,7 +1048,7 @@ header.scrolled .nav-container {
 
 .timeline-nodes-row {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   position: relative;
   z-index: 10;
 }
@@ -1924,56 +1965,16 @@ footer {
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
   }
-}
 
-@media (max-width: 768px) {
-  .reveal-on-scroll {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  /* Header & Navigation mobile view switch at 1024px */
+  .nav-menu, .nav-actions {
+    display: none;
   }
-  .section {
-    padding: 5rem 0 !important;
+  .hamburger {
+    display: flex;
   }
-  .section-title {
-    font-size: 2.25rem;
-  }
-  .about-text-content {
-    text-align: center;
-  }
-  .about-text-content h2 {
-    font-size: 1.9rem !important;
-    line-height: 1.35;
-    margin-bottom: 1.25rem;
-  }
-  .about-body-text {
-    font-size: 0.98rem !important;
-    line-height: 1.65;
-    margin-bottom: 2rem !important;
-  }
-  .about-masonry-wrapper {
-    margin-top: 2.5rem;
-  }
-  .masonry-img-card.img-1 {
-    height: 200px !important;
-    margin-top: 1rem !important;
-  }
-  .masonry-img-card.img-2 {
-    height: 235px !important;
-  }
-  .hero-globe-canvas-wrapper {
-    position: absolute;
-    top: 110px;
-    left: 50%;
-    transform: translateX(-50%) !important;
-    width: 220px !important;
-    height: 220px !important;
-    max-width: 220px !important;
-    max-height: 220px !important;
-    opacity: 1 !important;
-    z-index: 15 !important;
-    pointer-events: auto !important;
-  }
+
+  /* Hero Section Tablet Stack at 1024px */
   .hero {
     height: auto !important;
     min-height: 100vh;
@@ -2007,11 +2008,94 @@ footer {
   .trust-badges-row {
     display: none;
   }
-  .nav-menu, .nav-actions {
-    display: none;
+
+  .hero-globe-canvas-wrapper {
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%) !important;
+    width: 300px !important;
+    height: 300px !important;
+    max-width: 300px !important;
+    max-height: 300px !important;
+    opacity: 1 !important;
+    z-index: 15 !important;
+    pointer-events: auto !important;
   }
-  .hamburger {
-    display: flex;
+  .hero-glass-card {
+    padding: 170px 2.5rem 2.5rem 2.5rem !important;
+    margin-top: 120px !important;
+    max-width: 800px;
+    width: 100%;
+    z-index: 10 !important;
+  }
+  .hero-main-title {
+    font-size: 48px !important;
+    line-height: 1.2;
+    margin-top: 0.75rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+  }
+  .hero-super-heading {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+  }
+  .hero-subtitle-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Globe Framing Tags for Tablet */
+  .floating-tag {
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.85rem !important;
+  }
+  .tag-1 { top: 130px; left: 10%; }
+  .tag-2 { top: 320px; left: 10%; }
+  .tag-3 { top: 130px; right: 10%; left: auto; }
+  .tag-4 { top: 320px; right: 10%; left: auto; }
+  .tag-5 { top: 415px; left: 50%; transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .section {
+    padding: 5rem 0 !important;
+    scroll-margin-top: 100px !important;
+  }
+  .glass-card {
+    padding: 1.5rem !important;
+  }
+  .section-title {
+    font-size: 2.25rem;
+  }
+  .about-text-content {
+    text-align: center;
+  }
+  .about-text-content h2 {
+    font-size: 1.9rem !important;
+    line-height: 1.35;
+    margin-bottom: 1.25rem;
+  }
+  .about-body-text {
+    font-size: 0.98rem !important;
+    line-height: 1.65;
+    margin-bottom: 2rem !important;
+  }
+  .about-masonry-wrapper {
+    margin-top: 2.5rem;
+  }
+  .masonry-img-card.img-1 {
+    height: 200px !important;
+    margin-top: 1rem !important;
+  }
+  .masonry-img-card.img-2 {
+    height: 235px !important;
   }
   .why-grid-3x2 {
     grid-template-columns: 1fr;
@@ -2053,6 +2137,48 @@ footer {
   .bottom-legal-links {
     justify-content: center;
   }
+}
+
+/* Mobile responsive adjustments for small screens */
+@media (max-width: 576px) {
+  .about-masonry-wrapper {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .masonry-img-card.img-1,
+  .masonry-img-card.img-2 {
+    height: 220px !important;
+    margin-top: 0 !important;
+  }
+
+  /* Phone Hero spacing adjustments to keep CTAs above the fold */
+  .hero-globe-canvas-wrapper {
+    width: 220px !important;
+    height: 220px !important;
+    max-width: 220px !important;
+    max-height: 220px !important;
+  }
+  .hero-glass-card {
+    padding: 115px 1.25rem 1.5rem 1.25rem !important;
+    margin-top: 80px !important;
+  }
+  .hero-main-title {
+    font-size: 34px !important;
+  }
+  .hero-subtitle-text {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem !important;
+  }
+  .hero-cta-cluster {
+    margin-bottom: 1rem !important;
+  }
+
+  /* Globe Framing Tags for Phone */
+  .tag-1 { top: 115px; left: 2%; }
+  .tag-2 { top: 295px; left: 2%; }
+  .tag-3 { top: 115px; right: 2%; left: auto; }
+  .tag-4 { top: 295px; right: 2%; left: auto; }
+  .tag-5 { top: 325px; left: 50%; transform: translateX(-50%); }
 }
 
 /* ==========================================================================
@@ -2181,11 +2307,11 @@ footer {
   .hero-subtitle-text {
     font-size: 1rem;
     line-height: 1.5;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1.25rem !important;
   }
   .hero-glass-card {
-    padding: 130px 1.25rem 2rem 1.25rem !important;
-    margin-top: 90px !important;
+    padding: 115px 1.25rem 1.5rem 1.25rem !important;
+    margin-top: 80px !important;
     max-width: 100%;
     width: 100%;
     z-index: 10 !important;
@@ -2194,7 +2320,7 @@ footer {
     display: inline !important;
   }
   .hero-cta-cluster {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1rem !important;
   }
 }
 
@@ -2205,11 +2331,38 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
-  opacity: 0.5;
+  opacity: 0.65;
   pointer-events: none;
   z-index: 2;
+  overflow: hidden;
+}
+.hero-map-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.08));
+}
+.hero-connection-line {
+  stroke-dasharray: 6 6;
+  animation: heroConnectionFlow 10s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+}
+@keyframes heroConnectionFlow {
+  from { stroke-dashoffset: 60; }
+  to { stroke-dashoffset: 0; }
+}
+.hero-connection-pulse {
+  fill: var(--white);
+  stroke: var(--gold-primary);
+  stroke-width: 1.5;
+  animation: heroPulseWave 2s ease-out infinite;
+  transform-origin: center;
+}
+@keyframes heroPulseWave {
+  0% { r: 3px; opacity: 1; }
+  50% { r: 7px; opacity: 0.5; }
+  100% { r: 12px; opacity: 0; }
 }
 
 /* Flying Aircraft Animation */
@@ -2227,28 +2380,41 @@ footer {
   position: absolute;
   width: 45px;
   height: 45px;
-  transform: rotate(45deg);
-  animation: flyAcross 20s linear infinite;
   filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
   opacity: 0;
 }
-@keyframes flyAcross {
-  0% {
-    top: 90%;
-    left: -10%;
-    opacity: 0;
-  }
-  5% {
-    opacity: 0.7;
-  }
-  95% {
-    opacity: 0.7;
-  }
-  100% {
-    top: 10%;
-    left: 110%;
-    opacity: 0;
-  }
+.flying-aircraft.aircraft-1 {
+  animation: flyAcross1 25s linear infinite;
+  animation-delay: 0s;
+}
+.flying-aircraft.aircraft-2 {
+  animation: flyAcross2 18s linear infinite;
+  animation-delay: 5s;
+}
+.flying-aircraft.aircraft-3 {
+  animation: flyAcross3 30s linear infinite;
+  animation-delay: 12s;
+}
+
+@keyframes flyAcross1 {
+  0% { top: 80%; left: -10%; transform: rotate(35deg); opacity: 0; }
+  10% { opacity: 0.65; }
+  90% { opacity: 0.65; }
+  100% { top: 20%; left: 110%; transform: rotate(35deg); opacity: 0; }
+}
+
+@keyframes flyAcross2 {
+  0% { top: 15%; left: 110%; transform: rotate(-145deg); opacity: 0; }
+  10% { opacity: 0.55; }
+  90% { opacity: 0.55; }
+  100% { top: 85%; left: -10%; transform: rotate(-145deg); opacity: 0; }
+}
+
+@keyframes flyAcross3 {
+  0% { top: 90%; left: 30%; transform: rotate(-60deg); opacity: 0; }
+  10% { opacity: 0.45; }
+  90% { opacity: 0.45; }
+  100% { top: -10%; left: 70%; transform: rotate(-60deg); opacity: 0; }
 }
 
 /* Floating Country Tags (Positioned at far left and right edges) */
@@ -2280,6 +2446,7 @@ footer {
   font-weight: 500;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
   animation: floatAnimation 7s ease-in-out infinite;
+  transition: all var(--transition-normal);
 }
 
 .tag-1 { top: 25%; left: 3%; animation-delay: 0s; }
@@ -2294,10 +2461,16 @@ footer {
 }
 
 @media (max-width: 1250px) {
-  /* Prevent any tag overlap on tablet or mobile by hiding floating tags outside the glass container */
+  /* Position tags to beautifully frame the globe inside the 1250px viewport limit */
   .floating-tag {
-    display: none !important;
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.85rem !important;
   }
+  .tag-1 { top: 115px; left: 2%; }
+  .tag-2 { top: 295px; left: 2%; }
+  .tag-3 { top: 115px; right: 2%; left: auto; }
+  .tag-4 { top: 295px; right: 2%; left: auto; }
+  .tag-5 { top: 325px; left: 50%; transform: translateX(-50%); }
 }
 
 /* Services Country Lists and Groupings */
@@ -2494,5 +2667,19 @@ footer {
   fill: var(--white);
   r: 7px;
   filter: drop-shadow(0 0 12px var(--gold-primary));
+}
+
+/* Scroll Spy Navigation Link Highlighter states */
+.nav-link.active {
+  color: var(--gold-primary) !important;
+}
+
+.nav-link.active::after {
+  width: 100% !important;
+}
+
+.mobile-link.active {
+  color: var(--gold-primary) !important;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
 

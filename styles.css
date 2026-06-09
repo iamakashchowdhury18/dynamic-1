@@ -1932,17 +1932,16 @@ footer {
   }
   .hero-globe-canvas-wrapper {
     position: absolute;
-    top: 50%;
+    top: 110px;
     left: 50%;
-    transform: translate(-50%, calc(-50% + (var(--hero-scroll-y, 0) * 0.1px)));
-    width: 90vw;
-    height: 90vw;
-    max-width: 400px;
-    max-height: 400px;
-    opacity: 0.22;
-    z-index: 1;
-    pointer-events: none;
-    will-change: transform;
+    transform: translateX(-50%) !important;
+    width: 220px !important;
+    height: 220px !important;
+    max-width: 220px !important;
+    max-height: 220px !important;
+    opacity: 1 !important;
+    z-index: 15 !important;
+    pointer-events: auto !important;
   }
   .hero {
     height: auto !important;
@@ -2154,10 +2153,11 @@ footer {
     margin-bottom: 1.5rem !important;
   }
   .hero-glass-card {
-    padding: 2rem 1.25rem;
-    margin-top: 0 !important;
+    padding: 130px 1.25rem 2rem 1.25rem !important;
+    margin-top: 90px !important;
     max-width: 100%;
     width: 100%;
+    z-index: 10 !important;
   }
   .mobile-only-br {
     display: inline !important;

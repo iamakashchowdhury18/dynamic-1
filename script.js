@@ -835,4 +835,112 @@ _Please review my profile details._`;
       heroSection.style.setProperty('--hero-scroll-y', depth);
     }, { passive: true });
   }
+
+  // ==========================================================================
+  // 12. PREMIUM HERO GOLD PARTICLES CANVAS SYSTEM
+  // ==========================================================================
+  const particleCanvas = document.getElementById('particleCanvas');
+  if (particleCanvas) {
+    const pCtx = particleCanvas.getContext('2d');
+    let pWidth = particleCanvas.width = particleCanvas.parentElement.offsetWidth || window.innerWidth;
+    let pHeight = particleCanvas.height = particleCanvas.parentElement.offsetHeight || window.innerHeight;
+    
+    const particles = [];
+    const particleCount = Math.min(60, Math.floor(pWidth / 25));
+    
+    class Particle {
+      constructor() {
+        this.reset();
+        this.y = Math.random() * pHeight;
+      }
+      
+      reset() {
+        this.x = Math.random() * pWidth;
+        this.y = pHeight + Math.random() * 20;
+        this.size = Math.random() * 2.2 + 0.6;
+        this.speedY = -(Math.random() * 0.4 + 0.15);
+        this.speedX = Math.sin(Math.random() * Math.PI * 2) * 0.1;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.fadeSpeed = Math.random() * 0.003 + 0.001;
+      }
+      
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        this.speedX += (Math.random() - 0.5) * 0.015;
+        this.speedX = Math.max(-0.3, Math.min(0.3, this.speedX));
+        
+        if (this.y < pHeight * 0.1) {
+          this.opacity -= this.fadeSpeed;
+        }
+        
+        if (this.y < 0 || this.opacity <= 0 || this.x < 0 || this.x > pWidth) {
+          this.reset();
+        }
+      }
+      
+      draw() {
+        pCtx.beginPath();
+        pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        pCtx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+        pCtx.fill();
+      }
+    }
+    
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+    
+    const resizeParticles = () => {
+      if (!particleCanvas.parentElement) return;
+      pWidth = particleCanvas.width = particleCanvas.parentElement.offsetWidth || window.innerWidth;
+      pHeight = particleCanvas.height = particleCanvas.parentElement.offsetHeight || window.innerHeight;
+    };
+    window.addEventListener('resize', resizeParticles);
+    
+    const animateParticles = () => {
+      pCtx.clearRect(0, 0, pWidth, pHeight);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    };
+    animateParticles();
+  }
+
+  // ==========================================================================
+  // 13. 3D GLASSMORPHIC TILT INTERACTION FOR CARDS
+  // ==========================================================================
+  const tiltCards = document.querySelectorAll('.hero-service-card, .intent-card, .service-premium-card, .why-card');
+  if (window.innerWidth > 1024) {
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((centerY - y) / centerY) * 10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale(1.02)`;
+        card.style.transition = 'none';
+        
+        const percentX = (x / rect.width) * 100;
+        const percentY = (y / rect.height) * 100;
+        card.style.backgroundImage = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 80%)`;
+      });
+      
+      card.style.transition = 'transform 0.5s ease, background 0.5s ease';
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.5s ease, background 0.5s ease';
+        card.style.backgroundImage = '';
+      });
+    });
+  }
 });

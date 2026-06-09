@@ -95,7 +95,9 @@
        1. HERO SECTION ( airport bg + 3D canvas globe )
        ========================================== -->
   <section class="hero" id="home">
-    <div class="hero-background"></div>
+    <div class="hero-background">
+      <canvas id="particleCanvas"></canvas>
+    </div>
     
     <!-- World Map Grid Overlay -->
     <div class="hero-map-overlay"></div>
@@ -418,6 +420,23 @@
           <!-- Region Backdrop Outlines for hover effects -->
           <path d="M560,195 L615,190 L625,220 L615,245 L570,235 Z" fill="rgba(212, 175, 55, 0.03)" stroke="rgba(212, 175, 55, 0.1)" stroke-width="1" stroke-dasharray="2,2" />
           <path d="M460,110 L545,90 L565,120 L540,165 L485,160 Z" fill="rgba(212, 175, 55, 0.03)" stroke="rgba(212, 175, 55, 0.1)" stroke-width="1" stroke-dasharray="2,2" />
+
+          <!-- Animated Connection Routes from India (640, 235) -->
+          <g class="connection-routes" fill="none" stroke-width="1.2" stroke-linecap="round">
+            <path class="route-line" d="M 640 235 Q 617 220 595 225" /> <!-- UAE -->
+            <path class="route-line" d="M 640 235 Q 672 260 705 285" /> <!-- Singapore -->
+            <path class="route-line" d="M 640 235 Q 755 312 870 390" /> <!-- New Zealand -->
+            <path class="route-line" d="M 640 235 Q 572 172 505 110" /> <!-- Germany -->
+            <path class="route-line" d="M 640 235 Q 582 172 525 110" /> <!-- Poland -->
+            <path class="route-line" d="M 640 235 Q 555 185 470 135" /> <!-- Portugal -->
+            <path class="route-line" d="M 640 235 Q 574 195 508 155" /> <!-- Malta -->
+          </g>
+
+          <!-- Central Hub Pin (India) -->
+          <g class="country-node hub-node" id="nodeIndia" data-flag="🇮🇳" data-country="India (Corporate Headquarters)" data-track="Global Operations Hub" data-status="Active HQ Office">
+            <circle class="country-pulse hub-pulse" cx="640" cy="235" r="10" />
+            <circle class="country-pin hub-pin" cx="640" cy="235" r="5.5" fill="var(--gold-primary)" />
+          </g>
 
           <!-- 1. UAE -->
           <g class="country-node" id="nodeUAE" data-flag="🇦🇪" data-country="United Arab Emirates (UAE)" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">

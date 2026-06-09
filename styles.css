@@ -1927,8 +1927,27 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 5rem 0 !important;
+  }
   .section-title {
     font-size: 2.25rem;
+  }
+  .about-text-content {
+    text-align: center;
+  }
+  .about-text-content h2 {
+    font-size: 1.9rem !important;
+    line-height: 1.35;
+    margin-bottom: 1.25rem;
+  }
+  .about-body-text {
+    font-size: 0.98rem !important;
+    line-height: 1.65;
+    margin-bottom: 2rem !important;
+  }
+  .about-masonry-wrapper {
+    margin-top: 2.5rem;
   }
   .hero-globe-canvas-wrapper {
     position: absolute;

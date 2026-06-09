@@ -515,6 +515,8 @@ header.scrolled .nav-container {
   background-size: cover;
   background-position: center;
   z-index: 1;
+  transform: translateY(calc(var(--hero-scroll-y, 0) * 0.4px));
+  will-change: transform;
 }
 
 /* Golden globe container */
@@ -522,13 +524,14 @@ header.scrolled .nav-container {
   position: absolute;
   right: -5%;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% + (var(--hero-scroll-y, 0) * 0.15px)));
   width: 50vw;
   height: 50vw;
   max-width: 650px;
   max-height: 650px;
   z-index: 2;
   pointer-events: auto;
+  will-change: transform;
 }
 
 .hero-globe-canvas-wrapper canvas {
@@ -1913,31 +1916,48 @@ footer {
     font-size: 2.25rem;
   }
   .hero-globe-canvas-wrapper {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    transform: none;
-    width: 80vw;
-    height: 80vw;
-    max-width: 320px;
-    max-height: 320px;
-    margin: 2rem auto 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + (var(--hero-scroll-y, 0) * 0.1px)));
+    width: 90vw;
+    height: 90vw;
+    max-width: 400px;
+    max-height: 400px;
+    opacity: 0.22;
+    z-index: 1;
+    pointer-events: none;
+    will-change: transform;
   }
   .hero {
-    height: auto;
-    min-height: auto;
-    padding-top: 140px;
-    padding-bottom: 60px;
+    height: 100vh;
+    height: 100svh;
+    min-height: 560px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 90px;
+    padding-bottom: 20px;
+    overflow: hidden;
   }
   .hero-inner-content {
     text-align: center;
+    z-index: 10;
+    max-width: 100%;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .hero-cta-cluster {
     justify-content: center;
+    margin-bottom: 1.5rem;
+    gap: 0.75rem;
+    width: 100%;
   }
   .trust-badges-row {
-    justify-content: center;
+    display: none;
   }
   .nav-menu, .nav-actions {
     display: none;
@@ -2076,6 +2096,8 @@ footer {
   pointer-events: none;
   z-index: 3;
   overflow: hidden;
+  transform: translateY(calc(var(--hero-scroll-y, 0) * -0.1px));
+  will-change: transform;
 }
 .floating-tag {
   position: absolute;
@@ -2161,5 +2183,79 @@ footer {
 .testimonial-premium-card:hover .client-avatar-img-wrapper {
   transform: scale(1.05);
   box-shadow: var(--gold-glow);
+}
+
+/* Glassmorphism Hero Service Cards */
+.hero-service-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  max-width: 600px;
+  z-index: 10;
+}
+.hero-service-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-service-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(212, 175, 55, 0.3);
+  transform: translateY(-3px);
+  box-shadow: var(--gold-glow);
+}
+.hero-service-card .card-icon {
+  margin-bottom: 0.5rem;
+}
+.hero-service-card .card-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--gold-primary);
+}
+.hero-service-card h4 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+.hero-service-card p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Responsive Service Cards on Mobile */
+@media (max-width: 768px) {
+  .hero-service-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-service-card {
+    padding: 0.8rem 0.4rem;
+  }
+  .hero-service-card h4 {
+    font-size: 0.8rem;
+  }
+  .hero-service-card p {
+    font-size: 0.65rem;
+  }
+  .hero-service-card .card-icon svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 

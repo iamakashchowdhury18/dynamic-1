@@ -755,14 +755,17 @@ _Please review my profile details._`;
         // Alpha based on depth
         const depthAlpha = Math.max(0.05, (startRot.z + endRot.z + 2) / 4);
 
-        ctx.strokeStyle = `rgba(212, 175, 55, ${0.35 * depthAlpha})`;
-        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = `rgba(212, 175, 55, ${0.45 * depthAlpha})`;
+        ctx.lineWidth = 1.4;
+        ctx.shadowColor = 'var(--gold-primary)';
+        ctx.shadowBlur = 4;
         ctx.setLineDash([4, 4]);
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.quadraticCurveTo(midX, midY, x2, y2);
         ctx.stroke();
         ctx.setLineDash([]); // Reset dash
+        ctx.shadowBlur = 0; // Reset shadow
 
         // Draw animated pulse flying along the route
         const time = (performance.now() * 0.0008) % 1; // 0 to 1 loop
@@ -819,5 +822,17 @@ _Please review my profile details._`;
     };
 
     renderGlobe();
+  }
+
+  // ==========================================================================
+  // 11. PREMIUM SMOOTH PARALLAX EFFECT FOR HERO
+  // ==========================================================================
+  const heroSection = document.getElementById('home');
+  if (heroSection) {
+    window.addEventListener('scroll', () => {
+      const depth = window.scrollY;
+      if (depth > window.innerHeight) return;
+      heroSection.style.setProperty('--hero-scroll-y', depth);
+    }, { passive: true });
   }
 });

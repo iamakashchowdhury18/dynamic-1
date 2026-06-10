@@ -1977,14 +1977,13 @@ footer {
   /* Hero Section Tablet Stack at 1024px */
   .hero {
     height: auto !important;
-    min-height: 100vh;
-    min-height: 100svh;
+    min-height: auto !important;
     position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     padding-top: 125px !important;
-    padding-bottom: 40px;
+    padding-bottom: 15px !important;
     overflow: visible !important;
   }
   .hero .container {
@@ -2011,20 +2010,20 @@ footer {
 
   .hero-globe-canvas-wrapper {
     position: absolute;
-    top: 110px;
+    top: 100px !important;
     left: 50%;
     transform: translateX(-50%) !important;
-    width: 300px !important;
-    height: 300px !important;
-    max-width: 300px !important;
-    max-height: 300px !important;
+    width: 240px !important;
+    height: 240px !important;
+    max-width: 240px !important;
+    max-height: 240px !important;
     opacity: 1 !important;
     z-index: 15 !important;
     pointer-events: auto !important;
   }
   .hero-glass-card {
-    padding: 170px 2.5rem 2.5rem 2.5rem !important;
-    margin-top: 120px !important;
+    padding: 130px 2.5rem 2.5rem 2.5rem !important;
+    margin-top: 90px !important;
     max-width: 800px;
     width: 100%;
     z-index: 10 !important;
@@ -2065,8 +2064,16 @@ footer {
     transition: none !important;
   }
   .section {
-    padding: 5rem 0 !important;
+    padding: 3rem 0 !important;
     scroll-margin-top: 100px !important;
+  }
+  #about-us {
+    position: relative;
+    z-index: 5 !important;
+  }
+  .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
   .glass-card {
     padding: 1.5rem !important;
@@ -2153,14 +2160,15 @@ footer {
 
   /* Phone Hero spacing adjustments to keep CTAs above the fold */
   .hero-globe-canvas-wrapper {
-    width: 220px !important;
-    height: 220px !important;
-    max-width: 220px !important;
-    max-height: 220px !important;
+    width: 180px !important;
+    height: 180px !important;
+    max-width: 180px !important;
+    max-height: 180px !important;
+    top: 90px !important;
   }
   .hero-glass-card {
-    padding: 115px 1.25rem 1.5rem 1.25rem !important;
-    margin-top: 80px !important;
+    padding: 85px 1.25rem 1.5rem 1.25rem !important;
+    margin-top: 50px !important;
   }
   .hero-main-title {
     font-size: 34px !important;
@@ -2174,11 +2182,11 @@ footer {
   }
 
   /* Globe Framing Tags for Phone */
-  .tag-1 { top: 115px; left: 2%; }
-  .tag-2 { top: 295px; left: 2%; }
-  .tag-3 { top: 115px; right: 2%; left: auto; }
-  .tag-4 { top: 295px; right: 2%; left: auto; }
-  .tag-5 { top: 325px; left: 50%; transform: translateX(-50%); }
+  .tag-1 { top: 95px !important; left: 2%; }
+  .tag-2 { top: 245px !important; left: 2%; }
+  .tag-3 { top: 95px !important; right: 2%; left: auto; }
+  .tag-4 { top: 245px !important; right: 2%; left: auto; }
+  .tag-5 { top: 270px !important; left: 50%; transform: translateX(-50%); }
 }
 
 /* ==========================================================================
@@ -2230,6 +2238,10 @@ footer {
   }
   .logo-sub {
     font-size: 0.65rem !important;
+  }
+  .btn {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.85rem !important;
   }
 }
 
@@ -2293,6 +2305,13 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .hero-globe-canvas-wrapper {
+    width: 200px !important;
+    height: 200px !important;
+    max-width: 200px !important;
+    max-height: 200px !important;
+    top: 95px !important;
+  }
   .hero-main-title {
     font-size: 38px !important;
     line-height: 1.2;
@@ -2310,8 +2329,8 @@ footer {
     margin-bottom: 1.25rem !important;
   }
   .hero-glass-card {
-    padding: 115px 1.25rem 1.5rem 1.25rem !important;
-    margin-top: 80px !important;
+    padding: 95px 1.25rem 1.5rem 1.25rem !important;
+    margin-top: 60px !important;
     max-width: 100%;
     width: 100%;
     z-index: 10 !important;
@@ -2584,24 +2603,27 @@ footer {
 /* Responsive Service Cards on Mobile */
 @media (max-width: 768px) {
   .hero-service-cards {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
     width: 100%;
+    max-width: 320px;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero-service-card {
-    padding: 0.8rem 0.4rem;
+    padding: 1rem !important;
   }
   .hero-service-card h4 {
-    font-size: 0.8rem;
+    font-size: 0.95rem;
   }
   .hero-service-card p {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
   }
   .hero-service-card .card-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 }
 

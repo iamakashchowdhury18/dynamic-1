@@ -804,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (cleanInput.includes('contact') || cleanInput.includes('address') || cleanInput.includes('phone') || cleanInput.includes('number')) {
-      return "You can reach our corporate desk at +91 89455 23710, email us at info@dynamicoverseas.com, or visit us at Level 4, Dynasty Business Park, Andheri East, Mumbai.";
+      return "You can reach our corporate desk at +91 89455 23710, email us at info@dynamicservice.in, or visit us at Level 4, Dynasty Business Park, Andheri East, Mumbai.";
     }
 
     if (cleanInput.includes('guarantee') || cleanInput.includes('placements') || cleanInput.includes('job offer')) {

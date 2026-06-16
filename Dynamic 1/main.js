@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedVal = waServiceSelect.value;
       const baseText = `Hello Dynamic Overseas Services, I want to inquire about: ${selectedVal}. Please share the steps to start.`;
       const encodedText = encodeURIComponent(baseText);
-      const whatsappUrl = `https://wa.me/919876543210?text=${encodedText}`;
+      const whatsappUrl = `https://wa.me/918945523710?text=${encodedText}`;
       
       window.open(whatsappUrl, '_blank');
     });
@@ -804,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (cleanInput.includes('contact') || cleanInput.includes('address') || cleanInput.includes('phone') || cleanInput.includes('number')) {
-      return "You can reach our corporate desk at +91 98765 43210, email us at info@dynamicoverseas.com, or visit us at Level 4, Dynasty Business Park, Andheri East, Mumbai.";
+      return "You can reach our corporate desk at +91 89455 23710, email us at info@dynamicoverseas.com, or visit us at Level 4, Dynasty Business Park, Andheri East, Mumbai.";
     }
 
     if (cleanInput.includes('guarantee') || cleanInput.includes('placements') || cleanInput.includes('job offer')) {

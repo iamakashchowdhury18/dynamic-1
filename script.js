@@ -401,7 +401,7 @@ ${leadData.message ? leadData.message : 'No comments provided.'}
 _Please review my profile details._`;
 
         // Redirect to WhatsApp Hotline API
-        const hotlineNum = '919876543210';
+        const hotlineNum = '918945523710';
         const encodedMsg = encodeURIComponent(whatsAppMessage);
         const whatsAppUrl = `https://wa.me/${hotlineNum}?text=${encodedMsg}`;
 
@@ -465,7 +465,7 @@ _Please review my profile details._`;
       e.preventDefault();
       const defaultText = "Hello Dynamic Overseas Services! I am interested in your visa documentation and career services and would like a consultation.";
       const encoded = encodeURIComponent(defaultText);
-      window.open(`https://wa.me/919876543210?text=${encoded}`, '_blank');
+      window.open(`https://wa.me/918945523710?text=${encoded}`, '_blank');
     });
   });
 

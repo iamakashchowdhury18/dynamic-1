@@ -97,50 +97,20 @@ document.addEventListener('DOMContentLoaded', () => {
   updateTimelineProgress(); // Run on startup
 
   // ==========================================================================
-  // 5. INTERACTIVE SVG MAP TOOLTIPS
+  // 5. COUNTRY SHOWCASE FLOATING PARTICLES
   // ==========================================================================
-  const countryNodes = document.querySelectorAll('.country-node');
-  const mapTooltip = document.getElementById('mapTooltip');
-  const tooltipFlag = document.getElementById('tooltipFlag');
-  const tooltipTitle = document.getElementById('tooltipTitle');
-  const tooltipTrack = document.getElementById('tooltipTrack');
-  const tooltipStatus = document.getElementById('tooltipStatus');
-  const mapContainer = document.querySelector('.map-module-container');
-
-  if (mapContainer && mapTooltip) {
-    countryNodes.forEach(node => {
-      node.addEventListener('mouseenter', (e) => {
-        const flag = node.getAttribute('data-flag');
-        const country = node.getAttribute('data-country');
-        const track = node.getAttribute('data-track');
-        const status = node.getAttribute('data-status');
-
-        tooltipFlag.textContent = flag;
-        tooltipTitle.textContent = country;
-        tooltipTrack.textContent = track;
-        tooltipStatus.textContent = status;
-
-        mapTooltip.style.display = 'block';
-      });
-
-      node.addEventListener('mousemove', (e) => {
-        const containerRect = mapContainer.getBoundingClientRect();
-        // Calculate offset coordinates relative to container
-        const x = e.clientX - containerRect.left + 15;
-        const y = e.clientY - containerRect.top + 15;
-
-        // Prevent tooltip from overflowing map width
-        const tooltipWidth = mapTooltip.offsetWidth;
-        const finalX = (x + tooltipWidth > containerRect.width) ? (x - tooltipWidth - 30) : x;
-
-        mapTooltip.style.left = `${finalX}px`;
-        mapTooltip.style.top = `${y}px`;
-      });
-
-      node.addEventListener('mouseleave', () => {
-        mapTooltip.style.display = 'none';
-      });
-    });
+  const showcaseParticles = document.getElementById('showcaseParticles');
+  if (showcaseParticles) {
+    const particleCount = 25;
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'showcase-particle';
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDelay = `${Math.random() * 8}s`;
+      particle.style.animationDuration = `${6 + Math.random() * 8}s`;
+      showcaseParticles.appendChild(particle);
+    }
   }
 
   // ==========================================================================

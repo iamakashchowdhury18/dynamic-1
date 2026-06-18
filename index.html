@@ -420,158 +420,216 @@
   </section>
 
   <!-- ==========================================
-       4. COUNTRIES WE SERVE ( Interactive Map Module )
+       4. COUNTRIES WE SERVE ( Premium Showcase )
        ========================================== -->
-  <section class="section reveal-on-scroll" id="countries">
+  <section class="section showcase-section reveal-on-scroll" id="countries">
+    <!-- Subtle aircraft animation layer -->
+    <div class="sky-animation-overlay">
+      <div class="mini-aircraft"></div>
+    </div>
+    
+    <!-- Floating particles container -->
+    <div class="particles-overlay" id="showcaseParticles"></div>
+
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Countries We Serve</span>
-        <h2 class="section-title">International Jurisdictions Supported</h2>
-        <p class="section-subtitle">We assist candidates across major economic hubs, formatting applications according to localized guidelines.</p>
+        <h2 class="section-title">Countries We Serve</h2>
+        <p class="section-subtitle">Professional Work Visa, Visit Visa and Career Documentation Support Across Multiple Global Destinations</p>
       </div>
-      
-      <div class="map-module-container">
-        <!-- Interactive Tooltip Overlay (absolute relative to container) -->
-        <div class="map-tooltip-panel" id="mapTooltip">
-          <div class="map-tooltip-header">
-            <span class="tooltip-flag" id="tooltipFlag">🇲🇹</span>
-            <span class="tooltip-title" id="tooltipTitle">Malta (EU Schengen Zone)</span>
+
+      <div class="country-showcase-grid">
+        <!-- 1. Canada -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇨🇦</span>
           </div>
-          <div class="map-tooltip-body">
-            <p><strong>Supported Track:</strong> <span id="tooltipTrack">Work Visa / Visit Visa</span></p>
-            <p><strong>Status:</strong> <span class="highlight" id="tooltipStatus">Documentation Channels Open</span></p>
+          <h3 class="country-card-name">Canada</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
           </div>
         </div>
 
-        <!-- Styled Dark Mode SVG World Map Focus Areas -->
-        <svg class="map-svg-canvas" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg">
-          <!-- Simplified world map backdrop shapes -->
-          <g fill="#0e2343" stroke="rgba(255, 255, 255, 0.05)" stroke-width="0.8">
-            <!-- North America -->
-            <path d="M80,80 L200,60 L240,110 L280,100 L260,180 L200,200 L150,220 L80,150 Z" />
-            <!-- South America -->
-            <path d="M220,240 L280,240 L340,300 L320,380 L280,440 L240,350 Z" />
-            <!-- Africa -->
-            <path d="M440,240 L500,210 L560,220 L580,300 L540,380 L490,400 L470,320 Z" />
-            <!-- Australia & Oceania -->
-            <path d="M780,340 L840,330 L880,380 L840,410 L780,370 Z" />
-            <!-- Asia Backdrop (Siberia/North) -->
-            <path d="M450,50 L750,40 L900,60 L850,150 L720,180 L620,190 L520,170 Z" />
-          </g>
+        <!-- 2. Australia -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇦🇺</span>
+          </div>
+          <h3 class="country-card-name">Australia</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- HIGHLIGHTED INTERACTIVE PATHS & PINS (15 Countries Served) -->
-          
-          <!-- Region Backdrop Outlines for hover effects -->
-          <path d="M560,195 L615,190 L625,220 L615,245 L570,235 Z" fill="rgba(212, 175, 55, 0.03)" stroke="rgba(212, 175, 55, 0.1)" stroke-width="1" stroke-dasharray="2,2" />
-          <path d="M460,110 L545,90 L565,120 L540,165 L485,160 Z" fill="rgba(212, 175, 55, 0.03)" stroke="rgba(212, 175, 55, 0.1)" stroke-width="1" stroke-dasharray="2,2" />
+        <!-- 3. Germany -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇩🇪</span>
+          </div>
+          <h3 class="country-card-name">Germany</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- Animated Connection Routes from India (640, 235) -->
-          <g class="connection-routes" fill="none" stroke-width="1.2" stroke-linecap="round">
-            <path class="route-line" d="M 640 235 Q 617 220 595 225" /> <!-- UAE -->
-            <path class="route-line" d="M 640 235 Q 672 260 705 285" /> <!-- Singapore -->
-            <path class="route-line" d="M 640 235 Q 755 312 870 390" /> <!-- New Zealand -->
-            <path class="route-line" d="M 640 235 Q 572 172 505 110" /> <!-- Germany -->
-            <path class="route-line" d="M 640 235 Q 582 172 525 110" /> <!-- Poland -->
-            <path class="route-line" d="M 640 235 Q 555 185 470 135" /> <!-- Portugal -->
-            <path class="route-line" d="M 640 235 Q 574 195 508 155" /> <!-- Malta -->
-          </g>
+        <!-- 4. Singapore -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇸🇬</span>
+          </div>
+          <h3 class="country-card-name">Singapore</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- Central Hub Pin (India) -->
-          <g class="country-node hub-node" id="nodeIndia" data-flag="🇮🇳" data-country="India (Corporate Headquarters)" data-track="Global Operations Hub" data-status="Active HQ Office">
-            <circle class="country-pulse hub-pulse" cx="640" cy="235" r="10" />
-            <circle class="country-pin hub-pin" cx="640" cy="235" r="5.5" fill="var(--gold-primary)" />
-          </g>
+        <!-- 5. UAE -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇦🇪</span>
+          </div>
+          <h3 class="country-card-name">United Arab Emirates</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 1. UAE -->
-          <g class="country-node" id="nodeUAE" data-flag="🇦🇪" data-country="United Arab Emirates (UAE)" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="595" cy="225" r="8" />
-            <circle class="country-pin" cx="595" cy="225" r="4.5" />
-          </g>
+        <!-- 6. United Kingdom -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇬🇧</span>
+          </div>
+          <h3 class="country-card-name">United Kingdom</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 2. Saudi Arabia -->
-          <g class="country-node" id="nodeKSA" data-flag="🇸🇦" data-country="Saudi Arabia" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="575" cy="220" r="8" />
-            <circle class="country-pin" cx="575" cy="220" r="4.5" />
-          </g>
+        <!-- 7. New Zealand -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇳🇿</span>
+          </div>
+          <h3 class="country-card-name">New Zealand</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 3. Kuwait -->
-          <g class="country-node" id="nodeKuwait" data-flag="🇰🇼" data-country="Kuwait" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="578" cy="205" r="8" />
-            <circle class="country-pin" cx="578" cy="205" r="4.5" />
-          </g>
+        <!-- 8. Qatar -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇶🇦</span>
+          </div>
+          <h3 class="country-card-name">Qatar</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 4. Qatar -->
-          <g class="country-node" id="nodeQatar" data-flag="🇶🇦" data-country="Qatar" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="592" cy="214" r="8" />
-            <circle class="country-pin" cx="592" cy="214" r="4.5" />
-          </g>
+        <!-- 9. Oman -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇴🇲</span>
+          </div>
+          <h3 class="country-card-name">Oman</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 5. Oman -->
-          <g class="country-node" id="nodeOman" data-flag="🇴🇲" data-country="Oman" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="605" cy="232" r="8" />
-            <circle class="country-pin" cx="605" cy="232" r="4.5" />
-          </g>
+        <!-- 10. Saudi Arabia -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇸🇦</span>
+          </div>
+          <h3 class="country-card-name">Saudi Arabia</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 6. Bahrain -->
-          <g class="country-node" id="nodeBahrain" data-flag="🇧🇭" data-country="Bahrain" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="588" cy="210" r="8" />
-            <circle class="country-pin" cx="588" cy="210" r="4.5" />
-          </g>
+        <!-- 11. Kuwait -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇰🇼</span>
+          </div>
+          <h3 class="country-card-name">Kuwait</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 7. Singapore -->
-          <g class="country-node" id="nodeSingapore" data-flag="🇸🇬" data-country="Singapore" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="705" cy="285" r="8" />
-            <circle class="country-pin" cx="705" cy="285" r="4.5" />
-          </g>
+        <!-- 12. Bahrain -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇧🇭</span>
+          </div>
+          <h3 class="country-card-name">Bahrain</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 8. New Zealand -->
-          <g class="country-node" id="nodeNZ" data-flag="🇳🇿" data-country="New Zealand" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="870" cy="390" r="8" />
-            <circle class="country-pin" cx="870" cy="390" r="4.5" />
-          </g>
+        <!-- 13. Poland -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇵🇱</span>
+          </div>
+          <h3 class="country-card-name">Poland</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 9. Poland -->
-          <g class="country-node" id="nodePoland" data-flag="🇵🇱" data-country="Poland" data-track="Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="525" cy="110" r="8" />
-            <circle class="country-pin" cx="525" cy="110" r="4.5" />
-          </g>
+        <!-- 14. Hungary -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇭🇺</span>
+          </div>
+          <h3 class="country-card-name">Hungary</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 10. Portugal -->
-          <g class="country-node" id="nodePortugal" data-flag="🇵🇹" data-country="Portugal" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="470" cy="135" r="8" />
-            <circle class="country-pin" cx="470" cy="135" r="4.5" />
-          </g>
+        <!-- 15. Romania -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇷🇴</span>
+          </div>
+          <h3 class="country-card-name">Romania</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
 
-          <!-- 11. Malta -->
-          <g class="country-node" id="nodeMalta" data-flag="🇲🇹" data-country="Malta" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="508" cy="155" r="8" />
-            <circle class="country-pin" cx="508" cy="155" r="4.5" />
-          </g>
-
-          <!-- 12. Romania -->
-          <g class="country-node" id="nodeRomania" data-flag="🇷🇴" data-country="Romania" data-track="Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="538" cy="125" r="8" />
-            <circle class="country-pin" cx="538" cy="125" r="4.5" />
-          </g>
-
-          <!-- 13. Serbia -->
-          <g class="country-node" id="nodeSerbia" data-flag="🇷🇸" data-country="Serbia" data-track="Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="528" cy="130" r="8" />
-            <circle class="country-pin" cx="528" cy="130" r="4.5" />
-          </g>
-
-          <!-- 14. Germany -->
-          <g class="country-node" id="nodeGermany" data-flag="🇩🇪" data-country="Germany" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="505" cy="110" r="8" />
-            <circle class="country-pin" cx="505" cy="110" r="4.5" />
-          </g>
-
-          <!-- 15. Italy -->
-          <g class="country-node" id="nodeItaly" data-flag="🇮🇹" data-country="Italy" data-track="Visit Visa & Work Visa Support" data-status="Documentation Channels Open">
-            <circle class="country-pulse" cx="510" cy="135" r="8" />
-            <circle class="country-pin" cx="510" cy="135" r="4.5" />
-          </g>
-        </svg>
+        <!-- 16. Czech Republic -->
+        <div class="country-card glass-card">
+          <div class="country-flag-wrapper">
+            <span class="country-flag-emoji">🇨🇿</span>
+          </div>
+          <h3 class="country-card-name">Czech Republic</h3>
+          <div class="visa-badges-row">
+            <span class="visa-badge badge-work">Work Visa</span>
+            <span class="visa-badge badge-visit">Visit Visa</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>

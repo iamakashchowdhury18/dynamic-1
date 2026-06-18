@@ -961,123 +961,511 @@ header.scrolled .nav-container {
 @media (max-width: 768px) {
   .country-showcase-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem !important;
+    gap: 0.75rem !important; /* Tight spacing to avoid overflow */
+    grid-auto-rows: 1fr; /* Equal card heights */
+  }
+
+  .country-card {
+    padding: 1.5rem 0.8rem !important; /* Reduced padding for mobile spacing */
+    border-radius: 16px !important;
+  }
+
+  .country-card::before {
+    border-radius: 16px !important;
+  }
+
+  .country-flag-container {
+    width: 72px !important;
+    height: 72px !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .flag-wrapper {
+    width: 56px !important;
+    height: 56px !important; /* Flag size 56px mobile */
+  }
+
+  .country-flag-emoji {
+    font-size: 1.8rem !important;
+  }
+
+  .country-card-name {
+    font-size: 1.05rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .country-salary-badge {
+    padding: 0.3rem 0.5rem !important;
+    margin-bottom: 0.85rem !important;
+    border-radius: 8px !important;
+  }
+
+  .salary-value {
+    font-size: 0.72rem !important;
+  }
+
+  .visa-badges-row {
+    flex-direction: column !important; /* Stack badges vertically to prevent truncation */
+    gap: 0.4rem !important;
+    margin-bottom: 0.85rem !important;
+    align-items: center !important;
+  }
+
+  .visa-badge {
+    font-size: 0.65rem !important;
+    padding: 0.35rem 0.65rem !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .country-demand-level {
+    margin-bottom: 1rem !important;
+    gap: 0.25rem !important;
+  }
+
+  .demand-label {
+    font-size: 0.68rem !important;
+  }
+
+  .demand-value {
+    font-size: 0.7rem !important;
+    padding: 0.15rem 0.4rem !important;
+  }
+
+  .btn-card-action {
+    padding: 0.65rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 8px !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .country-showcase-grid {
+    gap: 0.5rem !important;
+  }
+  
+  .country-card {
+    padding: 1.25rem 0.5rem !important;
   }
 }
 
 .country-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 2.2rem 1.5rem;
+  background: rgba(5, 11, 29, 0.82); /* Dark Navy Glass Background (#050B1D) with high-end glass opacity */
+  border: 1px solid rgba(212, 175, 55, 0.15); /* Premium Gold Border (#D4AF37) */
+  border-radius: 24px; /* Rounded Corners 24px */
+  padding: 2.2rem 1.6rem;
   text-align: center;
   position: relative;
   overflow: hidden;
-  transition: all var(--transition-normal);
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
+              border-color 0.5s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  box-shadow: var(--glass-shadow);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.65), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 20px rgba(0, 0, 0, 0.4); /* Premium Depth Shadow */
+  backdrop-filter: blur(20px); /* Backdrop Blur 20px */
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1;
+  height: 100%; /* Make cards of equal height */
 }
 
+/* Border Gradient Animation & border shine on hover */
 .country-card::before {
   content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 1.5px; /* Gold border width */
+  background: linear-gradient(
+    120deg, 
+    rgba(212, 175, 55, 0.15), 
+    rgba(255, 255, 255, 0.05) 30%, 
+    rgba(212, 175, 55, 0.15) 60%, 
+    rgba(212, 175, 55, 0.8) 80%, 
+    rgba(212, 175, 55, 0.15) 100%
+  );
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.5s ease, background-position 0.8s ease;
+  opacity: 0.7; /* Constant premium border base visibility */
+}
+
+.country-card:hover {
+  transform: translateY(-12px); /* Card lifts upward / Floating Card Effect */
+  border-color: rgba(212, 175, 55, 0.35);
+  box-shadow: 
+    0 22px 50px rgba(212, 175, 55, 0.18), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    inset 0 -1px 20px rgba(212, 175, 55, 0.05); /* Gold glow increases */
+}
+
+.country-card:hover::before {
+  opacity: 1;
+  background-position: 100% 100%;
+  animation: border-glow-animate 3s linear infinite; /* Border shines */
+}
+
+@keyframes border-glow-animate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Multi-layer Glassmorphism - ambient glow overlay */
+.card-ambient-glow {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: var(--radius-md);
-  border: 1.5px solid transparent;
-  background: linear-gradient(135deg, var(--gold-primary), transparent 40%) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
+  background: radial-gradient(circle at 50% -20%, rgba(212, 175, 55, 0.18) 0%, transparent 60%); /* Soft Gold Ambient Glow */
+  opacity: 0.6;
+  transition: opacity 0.5s ease, background 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.country-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(212, 175, 55, 0.3);
-  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.12), inset 0 0 15px rgba(212, 175, 55, 0.05);
-}
-
-.country-card:hover::before {
+.country-card:hover .card-ambient-glow {
   opacity: 1;
+  background: radial-gradient(circle at 50% -10%, rgba(212, 175, 55, 0.32) 0%, transparent 70%);
 }
 
-.country-flag-wrapper {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1.5px solid var(--glass-border);
+/* FLAG SECTION: Large circular flag container */
+.country-flag-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin-bottom: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
-  transition: all var(--transition-normal);
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
+  z-index: 3;
 }
 
-.country-card:hover .country-flag-wrapper {
-  border-color: var(--gold-primary);
-  background: rgba(212, 175, 55, 0.05);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
-  transform: scale(1.05);
+/* Flag size 72px desktop */
+.flag-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03); /* Premium glass background behind flag */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.35),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  z-index: 2;
 }
 
 .country-flag-emoji {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   line-height: 1;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.country-card:hover .country-flag-emoji {
+  transform: scale(1.12) rotate(10deg); /* Flag rotates slightly */
+}
+
+/* Floating gold ring around flag */
+.flag-gold-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.75), transparent 50%, rgba(212, 175, 55, 0.75)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+  animation: ring-rotate-slow 12s linear infinite; /* Subtle rotating glow animation */
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.12);
+}
+
+@keyframes ring-rotate-slow {
+  0% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.12);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.03);
+    box-shadow: 0 0 22px rgba(212, 175, 55, 0.28);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.12);
+  }
+}
+
+.country-card:hover .flag-wrapper {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 
+    0 10px 25px rgba(212, 175, 55, 0.22),
+    inset 0 0 12px rgba(212, 175, 55, 0.12);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.country-card:hover .flag-gold-ring {
+  animation: ring-rotate-fast 4s linear infinite;
+}
+
+@keyframes ring-rotate-fast {
+  0% {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.05);
+    box-shadow: 0 0 28px rgba(212, 175, 55, 0.5);
+  }
+}
+
+/* COUNTRY NAME: Large bold typography, center alignment */
 .country-card-name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 1.25rem;
+  font-size: 1.45rem; /* Large typography */
+  font-weight: 700; /* Font weight 700 */
+  color: #FFFFFF; /* Pure white color */
+  margin-bottom: 0.65rem;
+  letter-spacing: 0.03em; /* Elegant spacing */
+  text-align: center; /* Perfect center alignment */
   font-family: var(--font-body);
+  z-index: 3;
+  transition: color 0.4s ease;
 }
 
+/* Salary Badge with glow hover effects */
+.country-salary-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0.4rem 0.8rem;
+  margin-bottom: 1.1rem;
+  transition: all 0.4s ease;
+  z-index: 3;
+}
+
+.country-salary-badge svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--gold-accent);
+  transition: all 0.4s ease;
+}
+
+.salary-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold-accent);
+  letter-spacing: 0.02em;
+  transition: all 0.4s ease;
+}
+
+.country-card:hover .country-salary-badge {
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.28);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.18); /* Salary badge glows */
+}
+
+.country-card:hover .country-salary-badge svg {
+  fill: var(--gold-primary);
+  transform: scale(1.1);
+}
+
+.country-card:hover .salary-value {
+  color: #FFFFFF;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+}
+
+/* BADGES: Premium pill badges */
 .visa-badges-row {
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
   justify-content: center;
+  z-index: 3;
+  width: 100%;
 }
 
 .visa-badge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.65rem;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.45rem 0.85rem;
+  border-radius: 50px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
+.badge-icon {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+/* WORK VISA: Gold gradient, gold glow, briefcase icon, embossed appearance */
 .badge-work {
-  background: rgba(212, 175, 55, 0.08);
-  color: var(--gold-primary);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-}
-
-.badge-visit {
-  background: rgba(14, 165, 233, 0.08);
-  color: #0ea5e9;
-  border: 1px solid rgba(14, 165, 233, 0.2);
+  background: linear-gradient(135deg, #FDF8E4 0%, #D4AF37 50%, #B38600 100%); /* Gold gradient background */
+  color: #060B16; /* High contrast dark navy text */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(212, 175, 55, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1.5px 3px rgba(0, 0, 0, 0.35); /* Premium embossed appearance + Gold glow effect */
+  text-shadow: 0 0.5px 1px rgba(255, 255, 255, 0.3);
 }
 
 .country-card:hover .badge-work {
-  background: rgba(212, 175, 55, 0.15);
-  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 
+    0 6px 18px rgba(212, 175, 55, 0.48),
+    inset 0 1px 1px rgba(255, 255, 255, 0.75),
+    inset 0 -1.5px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* VISIT VISA: Royal Blue gradient, airplane icon, neon blue glow */
+.badge-visit {
+  background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #1D4ED8 100%); /* Royal Blue gradient background */
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.32),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0 -1.5px 3px rgba(0, 0, 0, 0.35); /* Neon blue glow */
 }
 
 .country-card:hover .badge-visit {
-  background: rgba(14, 165, 233, 0.15);
-  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 
+    0 6px 18px rgba(59, 130, 246, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -1.5px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* NEW PREMIUM FEATURE: Demand Level */
+.country-demand-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  z-index: 3;
+}
+
+.demand-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.demand-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #F59E0B;
+  letter-spacing: 0.02em;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 0.2rem 0.65rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+}
+
+.country-card:hover .demand-value {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 3px 12px rgba(245, 158, 11, 0.3);
+  transform: scale(1.03);
+}
+
+/* BOTTOM ACTION: Premium Gold Button "Explore Opportunities" */
+.btn-card-action {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+  color: #060B16;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 3;
+  margin-top: auto; /* Push buttons to the bottom for equal alignment */
+}
+
+.btn-card-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.45);
+  background: linear-gradient(135deg, #FDF8E4 0%, #D4AF37 100%);
+  color: #000;
+}
+
+/* Shine Hover Effect */
+.btn-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: none;
+}
+
+.btn-card-action:hover .btn-shine {
+  animation: button-shine 1s ease-in-out forwards;
+}
+
+@keyframes button-shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
 }
 
 /* ==========================================================================

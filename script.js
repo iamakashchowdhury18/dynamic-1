@@ -487,32 +487,7 @@ _Please review my profile details._`;
     });
   });
 
-  // Recommended price package CTA focus auto-filler
-  const orderResumeBtn = document.getElementById('orderResumePackageBtn');
-  if (orderResumeBtn) {
-    orderResumeBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      // Auto check Resume Suite Radio
-      const resumeRadio = document.querySelector('input[name="serviceRequired"][value="Executive Resume"]');
-      if (resumeRadio) resumeRadio.checked = true;
-
-      // Auto-fill message field
-      const msgField = document.getElementById('formMessage');
-      if (msgField) {
-        msgField.value = "I am interested in ordering the Executive Resume Suite Package (₹10,000). Please guide me on structural CV updates.";
-      }
-
-      const contactSection = document.getElementById('contact');
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => {
-          const nameField = document.getElementById('fullName');
-          if (nameField) nameField.focus();
-        }, 800);
-      }
-    });
-  }
+  // Recommended price package CTA redirects to complete-order.html natively via its href.
 
   // ==========================================================================
   // 10. 3D DIGITAL CANVAS ROTATING GLOBE

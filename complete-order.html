@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Your Order | Dynamic Overseas Services</title>
+  <meta name="description" content="Secure checkout page to complete your resume package order with Dynamic Overseas Services.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231E3A8A'%3E%3Cpath d='M12 2L2 22h20L12 2zm0 4l6.5 13h-13L12 6z'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1E3A8A;
+      --primary-hover: #1E40AF;
+      --accent: #2563EB;
+      --accent-light: #EFF6FF;
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --success: #10B981;
+      --success-light: #ECFDF5;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 4rem;
+    }
+
+    /* Checkout Header */
+    .checkout-header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 0.75rem;
+    }
+
+    .logo-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--accent-light);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .secure-badge svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--primary);
+    }
+
+    /* Main Container */
+    .checkout-container {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1.75rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background-color: #F8FAFC;
+      text-align: center;
+    }
+
+    .card-header h1, .card-header h2 {
+      font-size: 1.6rem;
+      font-weight: 850;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .card-body {
+      padding: 2.5rem;
+    }
+
+    /* Step Indicators & Lists */
+    .package-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .package-detail-item {
+      background-color: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .package-detail-item .label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .package-detail-item .val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .consent-notice-box {
+      background-color: #FFFBEB;
+      border-left: 4px solid #F59E0B;
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .consent-notice-box h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #B45309;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .consent-notice-box p {
+      font-size: 0.875rem;
+      color: #78350F;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    
+    .consent-notice-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Checkbox & Terms */
+    .checkbox-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      background-color: var(--bg-page);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.2rem;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checkbox-label {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.65;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-label a {
+      color: var(--accent);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn-action {
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 1.1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-action:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-action:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Form and Fields */
+    .form-section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .required {
+      color: #EF4444;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      background-color: var(--bg-card);
+      transition: all var(--transition-fast);
+      font-family: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.12);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* File upload */
+    .file-upload-wrapper {
+      position: relative;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.75rem;
+      text-align: center;
+      background-color: #FAFBFC;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .file-upload-wrapper:hover {
+      border-color: var(--accent);
+      background-color: var(--accent-light);
+    }
+
+    .file-upload-wrapper input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-upload-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+
+    .icon-upload {
+      width: 28px;
+      height: 28px;
+      fill: var(--text-muted);
+    }
+
+    .file-upload-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .file-upload-formats {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .file-upload-name {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Payment details block */
+    .qr-container {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .qr-container img {
+      max-width: 240px;
+      height: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .upi-id-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 1rem;
+      margin-bottom: 2rem;
+      max-width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .upi-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .upi-value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .btn-copy {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      display: flex;
+      align-items: center;
+      color: var(--accent);
+      transition: color var(--transition-fast);
+    }
+
+    .btn-copy:hover {
+      color: var(--primary);
+    }
+
+    .icon-copy {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .bank-details-box {
+      background-color: #F8FAFC;
+      border-left: 4px solid var(--primary);
+      padding: 1.25rem;
+      border-radius: 6px;
+      margin-bottom: 2rem;
+    }
+
+    .bank-details-box h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .bank-pending-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .trust-footer {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.725rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .icon-trust {
+      width: 14px;
+      height: 14px;
+      fill: var(--text-muted);
+    }
+
+    /* Success Card */
+    .success-card {
+      text-align: center;
+      padding: 3.5rem 2.5rem;
+    }
+
+    .success-icon-box {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background-color: var(--success-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.75rem auto;
+      border: 2px solid var(--success);
+    }
+
+    .icon-success {
+      width: 44px;
+      height: 44px;
+      fill: var(--success);
+    }
+
+    .success-card h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .success-message {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 2.25rem;
+      line-height: 1.65;
+      background-color: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      padding: 1.25rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .success-summary {
+      background-color: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.25rem;
+      text-align: left;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .summary-row:last-child {
+      margin-bottom: 0;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--border);
+    }
+
+    .summary-row span {
+      color: var(--text-muted);
+    }
+
+    .summary-row strong {
+      color: var(--text);
+    }
+
+    .success-actions .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 0.85rem 2.25rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .success-actions .btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 600px) {
+      .form-grid-2, .package-details-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .package-detail-item {
+        margin-bottom: 1rem;
+      }
+      .package-detail-item:last-child {
+        margin-bottom: 0;
+      }
+      .card-body {
+        padding: 1.5rem;
+      }
+      .header-container {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Checkout Header -->
+  <header class="checkout-header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px; fill: none; stroke: var(--primary); stroke-width: 1.5;">
+            <ellipse cx="12" cy="12" rx="9" ry="3.2" transform="rotate(-35 12 12)" />
+            <ellipse cx="12" cy="12" rx="9" ry="3.2" transform="rotate(35 12 12)" />
+            <ellipse cx="12" cy="12" rx="9" ry="3.2" transform="rotate(90 12 12)" />
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-main">Dynamic Overseas Services</span>
+        </div>
+      </a>
+      <div class="secure-badge">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10z"/></svg>
+        <span>Secure Checkout</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="checkout-container">
+    
+    <!-- ==========================================
+         SCREEN 1: BEFORE YOU CONTINUE (Consent Screen)
+         ========================================== -->
+    <div class="card" id="consentScreen">
+      <div class="card-header">
+        <h1>Before You Continue</h1>
+      </div>
+      
+      <div class="card-body">
+        <div class="package-details-grid">
+          <div class="package-detail-item">
+            <span class="label">Package Price</span>
+            <span class="val">₹10,000</span>
+          </div>
+          <div class="package-detail-item">
+            <span class="label">Delivery Time</span>
+            <span class="val">5–7 Business Days</span>
+          </div>
+        </div>
+
+        <div class="consent-notice-box">
+          <h3>
+            <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            Important Service Notice
+          </h3>
+          <p>Dynamic Overseas Services is an independent profile packaging and legal documentation support intermediary. We specialize in international standard CV/Resume designing, cover letter preparation, and visit/tourist visa documentation checklists alignment.</p>
+          <p><strong>Please note:</strong> We do NOT issue visas, recruit candidates directly for foreign employers, or promise sponsorships. Final employment and visa clearance decisions reside solely with the respective hiring managers, embassies, or official government immigration departments.</p>
+        </div>
+
+        <div class="checkbox-container">
+          <input type="checkbox" id="consentCheckbox" onchange="toggleConsentButton()">
+          <label for="consentCheckbox" class="checkbox-label">
+            I have read and agree to the <a href="terms.html" target="_blank">Terms & Conditions</a>, <a href="privacy.html" target="_blank">Privacy Policy</a>, <a href="refund.html" target="_blank">Refund & Cancellation Policy</a> and <a href="index.html#disclaimer" target="_blank">Disclaimer</a>. I understand that Dynamic Overseas Services does not guarantee any job, interview, employment, work permit or visa approval.
+          </label>
+        </div>
+
+        <button type="button" id="continueToPaymentBtn" class="btn-action" disabled onclick="goToPaymentScreen()">
+          <span>Continue to Payment</span>
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+
+        <div class="trust-footer">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" class="icon-trust"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            <span>100% Secure</span>
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" class="icon-trust"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10z"/></svg>
+            <span>SSL Protection</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SCREEN 2: PAYMENT PAGE (Initially Hidden)
+         ========================================== -->
+    <div class="card" id="paymentScreen" style="display: none;">
+      <div class="card-header">
+        <h1>Complete Your Resume Package Order</h1>
+      </div>
+      
+      <div class="card-body">
+        <form id="checkoutForm" onsubmit="event.preventDefault();">
+          
+          <!-- Step 1: Customer Details -->
+          <div class="form-section-title">Step 1 – Customer Information</div>
+          
+          <div class="form-group">
+            <label for="fullName">Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" name="fullName" required placeholder="e.g. Akash Chowdhury">
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="e.g. akash@example.com">
+            </div>
+            <div class="form-group">
+              <label for="mobile">Mobile Number <span class="required">*</span></label>
+              <input type="tel" id="mobile" name="mobile" required placeholder="e.g. +91 8945523710">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="country">Country <span class="required">*</span></label>
+              <input type="text" id="country" name="country" required placeholder="e.g. India">
+            </div>
+            <div class="form-group">
+              <label for="targetPosition">Target Job Position <span class="required">*</span></label>
+              <input type="text" id="targetPosition" name="targetPosition" required placeholder="e.g. Sales Coordinator">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="resumeFile">Upload Existing Resume (Optional)</label>
+            <div class="file-upload-wrapper" id="resumeUploadBox">
+              <input type="file" id="resumeFile" name="resumeFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <div class="file-upload-content">
+                <svg viewBox="0 0 24 24" class="icon-upload"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                <span class="file-upload-text">Click or drag resume file here</span>
+                <span class="file-upload-formats">Accepted formats: PDF, DOC, DOCX, JPG, JPEG, PNG</span>
+              </div>
+            </div>
+            <div class="file-upload-name" id="resumeFileName">No file selected</div>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Additional Notes (Optional)</label>
+            <textarea id="notes" name="notes" placeholder="e.g. Specific target countries, format requests, or career goals..."></textarea>
+          </div>
+
+          <!-- Step 2: Payment Details -->
+          <div class="form-section-title" style="margin-top: 3rem;">Step 2 – Payment</div>
+          <p class="payment-instruction">Scan the UPI QR Code using GPay, PhonePe, Paytm, BHIM, or any payment app to pay ₹10,000 securely.</p>
+          
+          <div class="qr-container">
+            <img src="assets/qr_code.jpg" alt="Dynamic Overseas Services UPI QR Code">
+          </div>
+
+          <div class="upi-id-box">
+            <span class="upi-label">UPI ID:</span>
+            <span class="upi-value" id="upiIdText">akashhcchowdhury@oksbi</span>
+            <button class="btn-copy" type="button" onclick="copyUpiId()" title="Copy UPI ID">
+              <svg viewBox="0 0 24 24" class="icon-copy"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </button>
+          </div>
+
+          <div class="bank-details-box">
+            <h4>Bank Transfer Details</h4>
+            <p class="bank-pending-note">
+              Direct bank transfer details will be provided by our team. Please use the UPI QR code above to make an instant secure payment, or contact our support if you require bank account details.
+            </p>
+          </div>
+
+          <div class="form-group Screenshot-group">
+            <label for="screenshotFile">Upload Payment Screenshot <span class="required">*</span></label>
+            <div class="file-upload-wrapper" id="screenshotUploadBox">
+              <input type="file" id="screenshotFile" name="screenshotFile" accept=".jpg,.jpeg,.png,.pdf" required>
+              <div class="file-upload-content">
+                <svg viewBox="0 0 24 24" class="icon-upload"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                <span class="file-upload-text">Click or drag payment screenshot here</span>
+                <span class="file-upload-formats">Accepted formats: JPG, JPEG, PNG, PDF</span>
+              </div>
+            </div>
+            <div class="file-upload-name" id="screenshotFileName">No file selected</div>
+          </div>
+
+          <!-- Submit Order -->
+          <div class="submit-section" style="margin-top: 3rem;">
+            <button type="button" id="submitOrderBtn" class="btn-action" onclick="submitCheckoutForm()">
+              <svg viewBox="0 0 24 24" class="icon-shield"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              <span>Submit Order</span>
+            </button>
+          </div>
+          
+        </form>
+
+        <div class="trust-footer">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" class="icon-trust"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            <span>100% Secure</span>
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" class="icon-trust"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10z"/></svg>
+            <span>SSL Protection</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SCREEN 3: ORDER COMPLETED (Success Screen)
+         ========================================== -->
+    <div class="card" id="successScreen" style="display: none;">
+      <div class="success-card">
+        <div class="success-icon-box">
+          <svg viewBox="0 0 24 24" class="icon-success"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <h2>Order Submitted Successfully!</h2>
+        <p class="success-message">✅ Thank you! Your order has been received successfully. Our team will verify your payment and contact you within 24 hours.</p>
+        <div class="success-summary">
+          <div class="summary-row">
+            <span>Order Item:</span>
+            <strong>Complete Resume Package</strong>
+          </div>
+          <div class="summary-row">
+            <span>Amount Paid:</span>
+            <strong>₹10,000</strong>
+          </div>
+          <div class="summary-row">
+            <span>Estimated Delivery:</span>
+            <strong>5–7 Business Working Days</strong>
+          </div>
+        </div>
+        <div class="success-actions">
+          <a href="index.html" class="btn">Return to Homepage</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Screen 1: Toggle consent continue button
+    function toggleConsentButton() {
+      const checkbox = document.getElementById('consentCheckbox');
+      const continueBtn = document.getElementById('continueToPaymentBtn');
+      continueBtn.disabled = !checkbox.checked;
+    }
+
+    // Screen 1 -> Screen 2 transition
+    function goToPaymentScreen() {
+      const checkbox = document.getElementById('consentCheckbox');
+      if (!checkbox.checked) return;
+
+      document.getElementById('consentScreen').style.display = 'none';
+      document.getElementById('paymentScreen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Screen 2: Update resume filename label
+    document.getElementById('resumeFile').addEventListener('change', function(e) {
+      const name = e.target.files.length > 0 ? e.target.files[0].name : "No file selected";
+      document.getElementById('resumeFileName').textContent = name;
+    });
+
+    // Screen 2: Update screenshot filename label
+    document.getElementById('screenshotFile').addEventListener('change', function(e) {
+      const name = e.target.files.length > 0 ? e.target.files[0].name : "No file selected";
+      document.getElementById('screenshotFileName').textContent = name;
+    });
+
+    // Screen 2: Copy UPI ID
+    function copyUpiId() {
+      const upiText = document.getElementById('upiIdText').innerText;
+      navigator.clipboard.writeText(upiText).then(() => {
+        alert("UPI ID copied to clipboard: " + upiText);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+        // Fallback
+        const tempInput = document.createElement("input");
+        tempInput.value = upiText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        alert("UPI ID copied to clipboard: " + upiText);
+      });
+    }
+
+    // Screen 2 -> Screen 3: Submit Order Form
+    function submitCheckoutForm() {
+      const form = document.getElementById('checkoutForm');
+      const screenshotFile = document.getElementById('screenshotFile');
+
+      // Native validation check on customer fields
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Check screenshot file is uploaded
+      if (!screenshotFile.checkValidity()) {
+        screenshotFile.reportValidity();
+        return;
+      }
+
+      const submitBtn = document.getElementById('submitOrderBtn');
+      
+      // Spinner loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg viewBox="0 0 50 50" class="spinner" style="width: 20px; height: 20px; fill: none; stroke: white; stroke-width: 5; stroke-linecap: round;">
+          <circle cx="25" cy="25" r="20" stroke-dasharray="80, 200" stroke-dashoffset="0" style="stroke: white;"></circle>
+        </svg>
+        <span>Verifying Details & Submitting...</span>
+      `;
+
+      // Simulating verification and submit delay
+      setTimeout(() => {
+        document.getElementById('paymentScreen').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

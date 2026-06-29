@@ -844,38 +844,58 @@
     // Supabase Client Initialization
     const supabaseUrl = 'https://xgaiezwxsposxqijgqhz.supabase.co';
     const supabaseKey = 'sb_publishable_knKgybpU7gAiACINzn4hog_jYnuQpH2';
-    let supabase = null;
-    if (window.supabase) {
-      supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    let supabaseClient = null;
+    try {
+      if (window.supabase) {
+        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+      }
+    } catch (err) {
+      console.error('Failed to initialize Supabase client:', err);
     }
 
     // Screen 1: Toggle consent continue button
     function toggleConsentButton() {
       const checkbox = document.getElementById('consentCheckbox');
       const continueBtn = document.getElementById('continueToPaymentBtn');
-      continueBtn.disabled = !checkbox.checked;
+      if (checkbox && continueBtn) {
+        continueBtn.disabled = !checkbox.checked;
+      }
     }
 
     // Screen 1 -> Screen 2 transition
     function goToPaymentScreen() {
       const checkbox = document.getElementById('consentCheckbox');
-      if (!checkbox.checked) return;
+      if (!checkbox || !checkbox.checked) return;
 
-      document.getElementById('consentScreen').style.display = 'none';
-      document.getElementById('paymentScreen').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const consentScreen = document.getElementById('consentScreen');
+      const paymentScreen = document.getElementById('paymentScreen');
+      
+      if (consentScreen && paymentScreen) {
+        consentScreen.style.display = 'none';
+        paymentScreen.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
-    // Screen 2: Update resume filename label
-    document.getElementById('resumeFile').addEventListener('change', function(e) {
-      const name = e.target.files.length > 0 ? e.target.files[0].name : "No file selected";
-      document.getElementById('resumeFileName').textContent = name;
-    });
+    // Bind file upload change listeners safely when DOM is loaded
+    window.addEventListener('DOMContentLoaded', () => {
+      const resumeFileInput = document.getElementById('resumeFile');
+      const resumeFileNameLabel = document.getElementById('resumeFileName');
+      if (resumeFileInput && resumeFileNameLabel) {
+        resumeFileInput.addEventListener('change', function(e) {
+          const name = e.target.files.length > 0 ? e.target.files[0].name : "No file selected";
+          resumeFileNameLabel.textContent = name;
+        });
+      }
 
-    // Screen 2: Update screenshot filename label
-    document.getElementById('screenshotFile').addEventListener('change', function(e) {
-      const name = e.target.files.length > 0 ? e.target.files[0].name : "No file selected";
-      document.getElementById('screenshotFileName').textContent = name;
+      const screenshotFileInput = document.getElementById('screenshotFile');
+      const screenshotFileNameLabel = document.getElementById('screenshotFileName');
+      if (screenshotFileInput && screenshotFileNameLabel) {
+        screenshotFileInput.addEventListener('change', function(e) {
+          const name = e.target.files.length > 0 ? e.target.files[0].name : "No file selected";
+          screenshotFileNameLabel.textContent = name;
+        });
+      }
     });
 
     // Screen 2: Copy UPI ID
@@ -898,18 +918,18 @@
 
     // Helper: Upload file to Supabase Storage bucket
     const uploadFileToSupabase = async (bucketName, file) => {
-      if (!supabase || !file) return null;
+      if (!supabaseClient || !file) return null;
       try {
         const fileExt = file.name.split('.').pop();
         const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
         const filePath = `${fileName}`;
-        const { data, error } = await supabase.storage
+        const { data, error } = await supabaseClient.storage
           .from(bucketName)
           .upload(filePath, file);
         if (error) throw error;
         
         // Get public URL
-        const { data: publicUrlData } = supabase.storage
+        const { data: publicUrlData } = supabaseClient.storage
           .from(bucketName)
           .getPublicUrl(filePath);
         return publicUrlData.publicUrl;
@@ -936,9 +956,9 @@
       const finalResumeUrl = resumeUrl || (resumeFile ? `[Local File] ${resumeFile.name}` : null);
       const finalScreenshotUrl = screenshotUrl || (screenshotFile ? `[Local File] ${screenshotFile.name}` : `[Screenshot Required]`);
       
-      if (supabase) {
+      if (supabaseClient) {
         try {
-          const { error } = await supabase
+          const { error } = await supabaseClient
             .from('resume_orders')
             .insert([{
               full_name: document.getElementById('fullName').value.trim(),

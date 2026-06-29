@@ -1,9 +1,13 @@
 // Supabase Client Initialization
 const supabaseUrl = 'https://xgaiezwxsposxqijgqhz.supabase.co';
 const supabaseKey = 'sb_publishable_knKgybpU7gAiACINzn4hog_jYnuQpH2';
-let supabase = null;
-if (window.supabase) {
-  supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+let supabaseClient = null;
+try {
+  if (window.supabase) {
+    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+  }
+} catch (err) {
+  console.error('Failed to initialize Supabase client:', err);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -404,9 +408,9 @@ _Please review my profile details._`;
 
   // Helper selectors & functions
   const saveLeadToSupabase = async (leadData) => {
-    if (!supabase) return;
+    if (!supabaseClient) return;
     try {
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('appointments')
         .insert([{
           full_name: leadData.name,

@@ -225,18 +225,17 @@
 
     /* Buttons */
     .btn-action {
-      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background-color: var(--primary);
       color: white;
       border: none;
       border-radius: var(--radius-sm);
-      padding: 1.1rem 2rem;
-      font-size: 1.1rem;
+      padding: 0.85rem 2.25rem;
+      font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 0.75rem;
       box-shadow: var(--shadow-md);
       transition: all var(--transition-fast);
@@ -668,10 +667,12 @@
           </label>
         </div>
 
-        <button type="button" id="continueToPaymentBtn" class="btn-action" disabled onclick="goToPaymentScreen()">
-          <span>Continue to Payment</span>
-          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </button>
+        <div class="action-container" style="text-align: center; margin-top: 1.5rem;">
+          <button type="button" id="continueToPaymentBtn" class="btn-action" disabled onclick="goToPaymentScreen()">
+            <span>Continue to Payment</span>
+            <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
 
         <div class="trust-footer">
           <div class="trust-item">
@@ -782,7 +783,7 @@
           </div>
 
           <!-- Submit Order -->
-          <div class="submit-section" style="margin-top: 3rem;">
+          <div class="submit-section" style="margin-top: 3rem; text-align: center;">
             <button type="button" id="submitOrderBtn" class="btn-action" onclick="submitCheckoutForm()">
               <svg viewBox="0 0 24 24" class="icon-shield"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
               <span>Submit Order</span>

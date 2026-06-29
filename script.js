@@ -1,3 +1,11 @@
+// Supabase Client Initialization
+const supabaseUrl = 'https://xgaiezwxsposxqijgqhz.supabase.co';
+const supabaseKey = 'sb_publishable_knKgybpU7gAiACINzn4hog_jYnuQpH2';
+let supabase = null;
+if (window.supabase) {
+  supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================================================
@@ -332,6 +340,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Cache details in browser storage
       cacheLeadData(leadData);
 
+      // Save to Supabase in the background
+      saveLeadToSupabase(leadData);
+
       // Display generic success modal message
       showSuccessModal(
         "Application Submitted!",
@@ -355,6 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Cache details in browser storage
         cacheLeadData(leadData);
+
+        // Save to Supabase in the background
+        saveLeadToSupabase(leadData);
 
         // Compile WhatsApp text template
         const whatsAppMessage = `*NEW PROFILE EVALUATION INQUIRY*
@@ -389,6 +403,26 @@ _Please review my profile details._`;
   }
 
   // Helper selectors & functions
+  const saveLeadToSupabase = async (leadData) => {
+    if (!supabase) return;
+    try {
+      const { error } = await supabase
+        .from('appointments')
+        .insert([{
+          full_name: leadData.name,
+          phone_number: leadData.phone,
+          email_address: leadData.email,
+          country: leadData.country,
+          service_required: leadData.service,
+          message: leadData.message
+        }]);
+      if (error) throw error;
+      console.log('Lead saved to Supabase successfully!');
+    } catch (err) {
+      console.error('Error saving lead to Supabase:', err.message);
+    }
+  };
+
   const getFormData = () => {
     const name = document.getElementById('fullName').value.trim();
     const phone = document.getElementById('phoneNumber').value.trim();

@@ -837,7 +837,18 @@
 
   </div>
 
+  <!-- Load Supabase JavaScript client SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
+    // Supabase Client Initialization
+    const supabaseUrl = 'https://xgaiezwxsposxqijgqhz.supabase.co';
+    const supabaseKey = 'sb_publishable_knKgybpU7gAiACINzn4hog_jYnuQpH2';
+    let supabase = null;
+    if (window.supabase) {
+      supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    }
+
     // Screen 1: Toggle consent continue button
     function toggleConsentButton() {
       const checkbox = document.getElementById('consentCheckbox');
@@ -885,10 +896,75 @@
       });
     }
 
+    // Helper: Upload file to Supabase Storage bucket
+    const uploadFileToSupabase = async (bucketName, file) => {
+      if (!supabase || !file) return null;
+      try {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+        const filePath = `${fileName}`;
+        const { data, error } = await supabase.storage
+          .from(bucketName)
+          .upload(filePath, file);
+        if (error) throw error;
+        
+        // Get public URL
+        const { data: publicUrlData } = supabase.storage
+          .from(bucketName)
+          .getPublicUrl(filePath);
+        return publicUrlData.publicUrl;
+      } catch (err) {
+        console.warn(`File upload failed for bucket "${bucketName}":`, err.message);
+        return null;
+      }
+    };
+
+    // Helper: Save order data to Supabase
+    async function handleOrderSubmission(resumeFile, screenshotFile) {
+      let resumeUrl = null;
+      let screenshotUrl = null;
+      
+      // Upload files if present
+      if (resumeFile) {
+        resumeUrl = await uploadFileToSupabase('resumes', resumeFile);
+      }
+      if (screenshotFile) {
+        screenshotUrl = await uploadFileToSupabase('screenshots', screenshotFile);
+      }
+      
+      // If upload failed or was skipped, fallback to the file name as a reference
+      const finalResumeUrl = resumeUrl || (resumeFile ? `[Local File] ${resumeFile.name}` : null);
+      const finalScreenshotUrl = screenshotUrl || (screenshotFile ? `[Local File] ${screenshotFile.name}` : `[Screenshot Required]`);
+      
+      if (supabase) {
+        try {
+          const { error } = await supabase
+            .from('resume_orders')
+            .insert([{
+              full_name: document.getElementById('fullName').value.trim(),
+              email: document.getElementById('email').value.trim(),
+              mobile: document.getElementById('mobile').value.trim(),
+              country: document.getElementById('country').value.trim(),
+              target_position: document.getElementById('targetPosition').value.trim(),
+              notes: document.getElementById('notes').value.trim(),
+              resume_url: finalResumeUrl,
+              screenshot_url: finalScreenshotUrl,
+              amount: 10000,
+              status: 'pending_verification'
+            }]);
+          if (error) throw error;
+          console.log('Order details successfully inserted in Supabase!');
+        } catch (err) {
+          console.error('Error inserting order to Supabase database:', err.message);
+        }
+      }
+    }
+
     // Screen 2 -> Screen 3: Submit Order Form
-    function submitCheckoutForm() {
+    async function submitCheckoutForm() {
       const form = document.getElementById('checkoutForm');
-      const screenshotFile = document.getElementById('screenshotFile');
+      const screenshotFileInput = document.getElementById('screenshotFile');
+      const resumeFileInput = document.getElementById('resumeFile');
 
       // Native validation check on customer fields
       if (!form.checkValidity()) {
@@ -897,8 +973,8 @@
       }
 
       // Check screenshot file is uploaded
-      if (!screenshotFile.checkValidity()) {
-        screenshotFile.reportValidity();
+      if (!screenshotFileInput.checkValidity()) {
+        screenshotFileInput.reportValidity();
         return;
       }
 
@@ -913,12 +989,16 @@
         <span>Verifying Details & Submitting...</span>
       `;
 
-      // Simulating verification and submit delay
-      setTimeout(() => {
-        document.getElementById('paymentScreen').style.display = 'none';
-        document.getElementById('successScreen').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 1500);
+      const resumeFile = resumeFileInput.files.length > 0 ? resumeFileInput.files[0] : null;
+      const screenshotFile = screenshotFileInput.files.length > 0 ? screenshotFileInput.files[0] : null;
+
+      // Run files upload & order details insertion
+      await handleOrderSubmission(resumeFile, screenshotFile);
+
+      // Hide payment screen & display success confirmation Screen
+      document.getElementById('paymentScreen').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>

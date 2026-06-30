@@ -165,6 +165,7 @@ img, svg {
   font-size: 0.95rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  line-height: 1.2;
   transition: all var(--transition-normal);
   cursor: pointer;
   gap: 0.75rem;
@@ -336,7 +337,7 @@ header.scrolled .nav-container {
 .logo-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.25;
+  line-height: 1;
 }
 
 .logo-main {
@@ -345,6 +346,7 @@ header.scrolled .nav-container {
   font-size: 1.15rem;
   letter-spacing: 0.02em;
   color: var(--white);
+  line-height: 1.2;
 }
 
 .logo-sub {
@@ -354,25 +356,31 @@ header.scrolled .nav-container {
   letter-spacing: 0.08em;
   color: var(--gold-primary);
   text-transform: uppercase;
+  line-height: 1.2;
+}
+
+nav {
+  display: flex;
+  align-items: center;
 }
 
 .nav-menu {
   display: flex;
   gap: 1.25rem;
-  align-items: center;
+  align-items: baseline;
   list-style: none;
   flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-menu li {
-  display: flex;
-  align-items: center;
+  display: inline-block;
   white-space: nowrap;
 }
 
 .nav-link {
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   font-family: var(--font-body);
   font-weight: 600;
   text-transform: uppercase;
@@ -380,15 +388,15 @@ header.scrolled .nav-container {
   color: var(--text-muted);
   font-size: 0.75rem;
   position: relative;
-  padding: 0.35rem 0;
-  line-height: 1;
+  padding: 0.5rem 0;
+  line-height: normal;
   transition: all var(--transition-fast);
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -2px;
   left: 0;
   width: 0;
   height: 1.5px;
@@ -412,8 +420,12 @@ header.scrolled .nav-container {
 }
 
 .nav-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.65rem 1.5rem;
   font-size: 0.85rem;
+  line-height: 1.2;
 }
 
 /* Hamburger menu button */

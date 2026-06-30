@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Complete Your Order | Dynamic Overseas Services</title>
   <meta name="description" content="Secure checkout page to complete your resume package order with Dynamic Overseas Services.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231E3A8A'%3E%3Cpath d='M12 2L2 22h20L12 2zm0 4l6.5 13h-13L12 6z'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="assets/premium_logo_transparent.png">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -72,6 +72,27 @@
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: 600px) {
+      .logo-icon {
+        width: 50px;
+        height: 50px;
+      }
     }
 
     .secure-badge {
@@ -612,11 +633,7 @@
     <div class="header-container">
       <a href="index.html" class="logo">
         <div class="logo-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px; fill: none; stroke: var(--primary); stroke-width: 1.5;">
-            <ellipse cx="12" cy="12" rx="9" ry="3.2" transform="rotate(-35 12 12)" />
-            <ellipse cx="12" cy="12" rx="9" ry="3.2" transform="rotate(35 12 12)" />
-            <ellipse cx="12" cy="12" rx="9" ry="3.2" transform="rotate(90 12 12)" />
-          </svg>
+          <img src="assets/premium_logo_transparent.png" alt="Dynamic Overseas Services Logo">
         </div>
         <div class="logo-text">
           <span class="logo-main">Dynamic Overseas Services</span>

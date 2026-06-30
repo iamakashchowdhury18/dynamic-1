@@ -300,27 +300,24 @@ header.scrolled .nav-container {
 }
 
 .logo-icon {
-  width: 54px;
-  height: 54px;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all var(--transition-normal);
 }
 
 .logo:hover .logo-icon {
-  border-color: var(--gold-primary);
-  box-shadow: var(--gold-glow);
-  background: rgba(212, 175, 55, 0.05);
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.45));
+  transform: scale(1.05);
 }
 
-.logo-icon svg {
-  width: 32px;
-  height: 32px;
-  fill: var(--gold-primary);
+.logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .logo-text {
@@ -2704,8 +2701,8 @@ footer {
     height: 85px !important;
   }
   .logo-icon {
-    width: 46px !important;
-    height: 46px !important;
+    width: 54px !important;
+    height: 54px !important;
   }
   .logo-icon svg {
     width: 28px !important;
@@ -2728,8 +2725,8 @@ footer {
     height: 80px !important;
   }
   .logo-icon {
-    width: 42px !important;
-    height: 42px !important;
+    width: 50px !important;
+    height: 50px !important;
   }
   .logo-icon svg {
     width: 24px !important;

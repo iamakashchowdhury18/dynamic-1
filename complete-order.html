@@ -727,23 +727,12 @@
 
           <div class="form-grid-2">
             <div class="form-group">
-              <label for="email">Email Address <span class="required">*</span></label>
-              <input type="email" id="email" name="email" required placeholder="e.g. akash@example.com">
-            </div>
-            <div class="form-group">
               <label for="mobile">Mobile Number <span class="required">*</span></label>
               <input type="tel" id="mobile" name="mobile" required placeholder="e.g. +91 8945523710">
             </div>
-          </div>
-
-          <div class="form-grid-2">
             <div class="form-group">
               <label for="country">Country <span class="required">*</span></label>
               <input type="text" id="country" name="country" required placeholder="e.g. India">
-            </div>
-            <div class="form-group">
-              <label for="targetPosition">Target Job Position <span class="required">*</span></label>
-              <input type="text" id="targetPosition" name="targetPosition" required placeholder="e.g. Sales Coordinator">
             </div>
           </div>
 
@@ -981,10 +970,8 @@
             .from('resume_orders')
             .insert([{
               full_name: document.getElementById('fullName').value.trim(),
-              email: document.getElementById('email').value.trim(),
               mobile: document.getElementById('mobile').value.trim(),
               country: document.getElementById('country').value.trim(),
-              target_position: document.getElementById('targetPosition').value.trim(),
               notes: document.getElementById('notes').value.trim(),
               resume_url: finalResumeUrl,
               screenshot_url: finalScreenshotUrl,

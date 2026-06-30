@@ -8,24 +8,28 @@
   <link rel="icon" type="image/png" href="assets/premium_logo_transparent.png">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
     :root {
-      --primary: #1E3A8A;
-      --primary-hover: #1E40AF;
-      --accent: #2563EB;
-      --accent-light: #EFF6FF;
-      --bg-page: #F8FAFC;
-      --bg-card: #FFFFFF;
-      --border: #E2E8F0;
-      --text: #0F172A;
-      --text-muted: #64748B;
+      --primary: #D4AF37;          /* Champagne Gold */
+      --primary-hover: #FFF5D1;    /* Bright Gold */
+      --accent: #C5A880;           /* Muted Gold Accent */
+      --accent-light: rgba(212, 175, 55, 0.08); /* Gold Overlay */
+      --bg-page: #060B16;          /* Deep Luxury Midnight Navy */
+      --bg-card: #03060C;          /* Rich Slate-Black Navy */
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #FFFFFF;
+      --text-muted: #A0AEC0;       /* Slate 400 */
       --success: #10B981;
-      --success-light: #ECFDF5;
+      --success-light: rgba(16, 185, 129, 0.1);
       --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.6);
+      --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-headings: 'Playfair Display', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
     *, *::before, *::after {
@@ -35,7 +39,7 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: var(--font-body);
       background-color: var(--bg-page);
       color: var(--text);
       line-height: 1.6;
@@ -133,13 +137,14 @@
     .card-header {
       padding: 1.75rem 2rem;
       border-bottom: 1px solid var(--border);
-      background-color: #F8FAFC;
+      background-color: rgba(255, 255, 255, 0.02);
       text-align: center;
     }
 
     .card-header h1, .card-header h2 {
-      font-size: 1.6rem;
-      font-weight: 850;
+      font-family: var(--font-headings);
+      font-size: 1.8rem;
+      font-weight: 700;
       color: var(--primary);
       letter-spacing: -0.5px;
     }
@@ -249,23 +254,26 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--primary);
-      color: white;
+      background: linear-gradient(135deg, var(--primary) 0%, #B3922E 100%);
+      color: var(--bg-page);
       border: none;
       border-radius: var(--radius-sm);
-      padding: 0.85rem 2.25rem;
-      font-size: 1rem;
+      padding: 0.95rem 2.25rem;
+      font-size: 0.95rem;
       font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       cursor: pointer;
       gap: 0.75rem;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
       transition: all var(--transition-fast);
     }
 
     .btn-action:hover:not(:disabled) {
-      background-color: var(--primary-hover);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary) 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      color: var(--bg-page);
     }
 
     .btn-action:disabled {
@@ -276,7 +284,8 @@
 
     /* Form and Fields */
     .form-section-title {
-      font-size: 1.1rem;
+      font-family: var(--font-headings);
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 1.25rem;
@@ -324,8 +333,8 @@
     input:focus,
     textarea:focus {
       outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.12);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3.5px rgba(212, 175, 55, 0.15);
     }
 
     textarea {
@@ -340,13 +349,13 @@
       border-radius: var(--radius-sm);
       padding: 1.75rem;
       text-align: center;
-      background-color: #FAFBFC;
+      background-color: rgba(255, 255, 255, 0.01);
       cursor: pointer;
       transition: all var(--transition-fast);
     }
 
     .file-upload-wrapper:hover {
-      border-color: var(--accent);
+      border-color: var(--primary);
       background-color: var(--accent-light);
     }
 
@@ -456,7 +465,7 @@
     }
 
     .bank-details-box {
-      background-color: #F8FAFC;
+      background-color: rgba(255, 255, 255, 0.02);
       border-left: 4px solid var(--primary);
       padding: 1.25rem;
       border-radius: 6px;
@@ -536,11 +545,11 @@
 
     .success-message {
       font-size: 0.95rem;
-      color: var(--text);
+      color: var(--success);
       margin-bottom: 2.25rem;
       line-height: 1.65;
-      background-color: #F0FDF4;
-      border: 1px solid #BBF7D0;
+      background-color: var(--success-light);
+      border: 1px solid rgba(16, 185, 129, 0.25);
       padding: 1.25rem;
       border-radius: var(--radius-sm);
     }

@@ -361,9 +361,18 @@ header.scrolled .nav-container {
   gap: 1.25rem;
   align-items: center;
   list-style: none;
+  flex-wrap: nowrap;
+}
+
+.nav-menu li {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .nav-link {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-body);
   font-weight: 600;
   text-transform: uppercase;
@@ -371,14 +380,15 @@ header.scrolled .nav-container {
   color: var(--text-muted);
   font-size: 0.75rem;
   position: relative;
-  padding: 0.5rem 0;
+  padding: 0.35rem 0;
+  line-height: 1;
   transition: all var(--transition-fast);
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
   width: 0;
   height: 1.5px;
@@ -2743,6 +2753,27 @@ footer {
   .logo-sub {
     font-size: 0.7rem !important;
     letter-spacing: 0.04em !important;
+  }
+}
+
+/* Responsive adjustments for mid-size desktop screens to prevent navbar wrapping */
+@media (min-width: 769px) and (max-width: 1280px) {
+  .nav-menu {
+    gap: 0.75rem;
+  }
+  .nav-link {
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+  }
+  .nav-container {
+    padding: 0 1rem;
+  }
+  .nav-actions {
+    gap: 0.5rem;
+  }
+  .nav-actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
   }
 }
 

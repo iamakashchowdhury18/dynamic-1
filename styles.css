@@ -3276,8 +3276,9 @@ footer {
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
 
-/* Desktop-only logo size adjustment */
+/* Desktop-only logo size and hero section spacing adjustment */
 @media (min-width: 1025px) {
+  /* Logo */
   .logo-icon {
     width: 108px;
     height: 108px;
@@ -3285,6 +3286,40 @@ footer {
   header.scrolled .logo-icon {
     width: 94px;
     height: 94px;
+  }
+
+  /* Hero Section Clearance */
+  .hero {
+    padding-top: 135px !important;
+  }
+
+  /* Hero Glass Card Container Padding */
+  .hero-glass-card {
+    padding: 2.25rem 3rem !important;
+  }
+
+  .hero-main-title {
+    font-size: 40px !important; /* Reduced from 42px by another 5% (total ~50% from original 80px) */
+    margin-top: 0.5rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .hero-super-heading {
+    margin-bottom: 0.25rem !important;
+  }
+  .hero-subtitle-text {
+    margin-bottom: 1.5rem !important;
+    font-size: 1.15rem !important;
+  }
+  .hero-cta-cluster {
+    margin-bottom: 1.75rem !important;
+  }
+  .hero-service-cards {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .trust-badges-row {
+    padding-top: 1.5rem !important;
+    gap: 1.5rem !important;
   }
 }
 

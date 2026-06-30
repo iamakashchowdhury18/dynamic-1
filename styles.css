@@ -263,33 +263,46 @@ img, svg {
 header {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1360px;
+  margin-top: 1.5rem;
+  border-radius: var(--radius-md);
   z-index: 1000;
-  background-color: rgba(5, 12, 22, 0.96);
+  background-color: rgba(5, 12, 22, 0.72);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--glass-shadow);
   transition: all var(--transition-normal);
 }
 
 header.scrolled {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0;
+  border-radius: 0;
   background-color: rgba(4, 9, 17, 0.98);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  transform: translateX(-50%) scale(1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 110px;
+  height: 96px;
+  padding: 0 2rem;
   transition: height var(--transition-normal);
 }
 
 header.scrolled .nav-container {
-  height: 90px;
+  height: 84px;
 }
 
 .logo {
@@ -345,18 +358,21 @@ header.scrolled .nav-container {
 
 .nav-menu {
   display: flex;
-  gap: 1.75rem;
+  gap: 1.25rem;
   align-items: center;
   list-style: none;
 }
 
 .nav-link {
-  font-weight: 500;
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   position: relative;
   padding: 0.5rem 0;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .nav-link::after {
@@ -370,8 +386,9 @@ header.scrolled .nav-container {
   transition: width var(--transition-fast);
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
   color: var(--gold-primary);
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.25);
 }
 
 .nav-link:hover::after {
@@ -2694,6 +2711,18 @@ footer {
 
 /* Logo Text & Icon Responsiveness */
 @media (max-width: 768px) {
+  header {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 0 !important;
+    border-radius: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    box-shadow: none !important;
+  }
   .nav-container {
     height: 95px !important;
   }

@@ -3276,3 +3276,15 @@ footer {
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
 
+/* Desktop-only logo size adjustment */
+@media (min-width: 1025px) {
+  .logo-icon {
+    width: 108px;
+    height: 108px;
+  }
+  header.scrolled .logo-icon {
+    width: 94px;
+    height: 94px;
+  }
+}
+

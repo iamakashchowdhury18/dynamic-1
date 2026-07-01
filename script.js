@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const countUp = (element) => {
     const target = parseFloat(element.getAttribute('data-target'));
-    const isDecimal = target % 1 !== 0;
+    const suffix = element.getAttribute('data-suffix') || '';
     const duration = 2000; // 2 seconds
     const startTime = performance.now();
     
@@ -144,20 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const easeProgress = progress * (2 - progress);
       const currentValue = easeProgress * target;
       
-      if (isDecimal) {
-        element.textContent = currentValue.toFixed(1) + ' %';
-      } else {
-        element.textContent = Math.floor(currentValue).toLocaleString() + ' +';
-      }
+      const formattedValue = target % 1 !== 0 ? currentValue.toFixed(1) : Math.floor(currentValue).toLocaleString();
+      element.textContent = formattedValue + ' ' + suffix;
       
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        if (isDecimal) {
-          element.textContent = target.toFixed(1) + ' %';
-        } else {
-          element.textContent = target.toLocaleString() + ' +';
-        }
+        const finalValue = target % 1 !== 0 ? target.toFixed(1) : target.toLocaleString();
+        element.textContent = finalValue + ' ' + suffix;
       }
     };
     

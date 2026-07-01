@@ -264,8 +264,10 @@ img, svg {
 header {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   width: 90%;
   max-width: 1360px;
   margin-top: 1.5rem;
@@ -289,7 +291,7 @@ header.scrolled {
   border-left: none;
   border-right: none;
   border-top: none;
-  transform: translateX(-50%) scale(1);
+  transform: scale(1);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
 }
 
@@ -3278,6 +3280,15 @@ footer {
 
 /* Desktop-only logo size and hero section spacing adjustment */
 @media (min-width: 1025px) {
+  /* Center and space navigation content perfectly inside header */
+  .nav-container {
+    max-width: 1360px !important;
+    width: 100% !important;
+    padding: 0 2.5rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
   /* Logo */
   .logo-icon {
     width: 108px;

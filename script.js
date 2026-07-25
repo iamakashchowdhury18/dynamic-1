@@ -964,4 +964,152 @@ _Please review my profile details._`;
 
   window.addEventListener('scroll', scrollSpy);
   scrollSpy();
+
+  // ==========================================================================
+  // 15. RAZORPAY CUSTOM ONLINE PAYMENT GATEWAY INTEGRATION
+  // ==========================================================================
+  const RAZORPAY_KEY_ID = 'rzp_live_THgIUqskfj8CsO';
+  
+  const payModal = document.getElementById('customPaymentModal');
+  const closePayModalBtn = document.getElementById('closePaymentModalBtn');
+  const payForm = document.getElementById('customPaymentForm');
+  const payTriggers = document.querySelectorAll('.pay-online-trigger');
+
+  // Prefill modal fields if cached
+  const prefillPaymentFields = () => {
+    const cachedName = localStorage.getItem('dos_cached_name');
+    const cachedPhone = localStorage.getItem('dos_cached_phone');
+    const cachedEmail = localStorage.getItem('dos_cached_email');
+
+    const nameInput = document.getElementById('payCustomerName');
+    const phoneInput = document.getElementById('payCustomerPhone');
+    const emailInput = document.getElementById('payCustomerEmail');
+
+    if (nameInput && cachedName) nameInput.value = cachedName;
+    if (phoneInput && cachedPhone) phoneInput.value = cachedPhone;
+    if (emailInput && cachedEmail) emailInput.value = cachedEmail;
+  };
+
+  const openPaymentModal = () => {
+    if (!payModal) return;
+    prefillPaymentFields();
+    payModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closePaymentModal = () => {
+    if (!payModal) return;
+    payModal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  payTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPaymentModal();
+    });
+  });
+
+  if (closePayModalBtn) {
+    closePayModalBtn.addEventListener('click', closePaymentModal);
+  }
+
+  if (payModal) {
+    payModal.addEventListener('click', (e) => {
+      if (e.target === payModal) closePaymentModal();
+    });
+  }
+
+  if (payForm) {
+    payForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('payCustomerName').value.trim();
+      const phone = document.getElementById('payCustomerPhone').value.trim();
+      const email = document.getElementById('payCustomerEmail').value.trim();
+      const purpose = document.getElementById('payPurpose').value;
+      const rawAmount = parseFloat(document.getElementById('payCustomAmount').value);
+
+      if (!name || !phone || !email || isNaN(rawAmount) || rawAmount <= 0) {
+        alert('Please fill in all required payment details and enter a valid custom amount.');
+        return;
+      }
+
+      // Cache details for future visits
+      localStorage.setItem('dos_cached_name', name);
+      localStorage.setItem('dos_cached_phone', phone);
+      localStorage.setItem('dos_cached_email', email);
+
+      // Amount in paise (1 INR = 100 paise)
+      const amountInPaise = Math.round(rawAmount * 100);
+
+      // Verify Razorpay SDK availability
+      if (typeof Razorpay === 'undefined') {
+        alert('Payment gateway is loading. Please check your internet connection and try again.');
+        return;
+      }
+
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: amountInPaise,
+        currency: 'INR',
+        name: 'Dynamic Overseas Services',
+        description: purpose,
+        image: 'assets/premium_logo_transparent.png',
+        theme: {
+          color: '#D4AF37'
+        },
+        prefill: {
+          name: name,
+          email: email,
+          contact: phone
+        },
+        notes: {
+          payment_purpose: purpose,
+          customer_name: name
+        },
+        handler: function (response) {
+          closePaymentModal();
+          
+          const successMessage = `Payment Received Successfully!\n\nTransaction ID: ${response.razorpay_payment_id}\nAmount Paid: ₹${rawAmount.toLocaleString()}\nPurpose: ${purpose}\n\nOur service coordinator will send your official invoice & payment receipt within 1 hour.`;
+          
+          showSuccessModal('Payment Confirmed', successMessage);
+
+          // Save transaction lead to Supabase if client active
+          if (supabaseClient) {
+            supabaseClient
+              .from('appointments')
+              .insert([{
+                full_name: name,
+                phone_number: phone,
+                email_address: email,
+                country: 'Online Payment',
+                service_required: purpose,
+                message: `Razorpay Payment Completed. Amount: ₹${rawAmount}, Payment ID: ${response.razorpay_payment_id}`
+              }])
+              .then(({ error }) => {
+                if (error) console.error('Error saving payment record to Supabase:', error.message);
+                else console.log('Payment lead saved to Supabase!');
+              });
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            console.log('Payment modal dismissed by user.');
+          }
+        }
+      };
+
+      try {
+        const rzpInstance = new Razorpay(options);
+        rzpInstance.on('payment.failed', function (response) {
+          alert(`Payment Failed!\nReason: ${response.error.description || 'Transaction cancelled or failed.'}`);
+        });
+        rzpInstance.open();
+      } catch (err) {
+        console.error('Razorpay initialization error:', err);
+        alert('Could not initialize Razorpay payment. Please try again.');
+      }
+    });
+  }
 });

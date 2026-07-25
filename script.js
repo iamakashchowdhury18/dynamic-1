@@ -1015,7 +1015,7 @@ _Please review my profile details._`;
                   <option value="Consultation Fee">Consultation Fee</option>
                   <option value="Visit Visa Documentation">Visit Visa Documentation</option>
                   <option value="Work Visa Support">Work Visa Support</option>
-                  <option value="Executive Resume Package">Executive Resume Package</option>
+                  <option value="Resume Package">Resume Package</option>
                   <option value="Other Service Charges">Other Service Charges</option>
                 </select>
               </div>
@@ -1114,7 +1114,7 @@ _Please review my profile details._`;
     const resumeTrigger = e.target.closest('#orderResumePackageBtn, .order-resume-trigger');
     if (resumeTrigger) {
       e.preventDefault();
-      window.openPaymentModal('Executive Resume Package', 10000);
+      window.openPaymentModal('Resume Package', 10000);
       return;
     }
 

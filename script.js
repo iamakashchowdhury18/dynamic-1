@@ -1081,9 +1081,20 @@ _Please review my profile details._`;
     if (emailInput && cachedEmail) emailInput.value = cachedEmail;
   };
 
-  window.openPaymentModal = () => {
+  window.openPaymentModal = (defaultPurpose, defaultAmount) => {
     const modal = ensurePaymentModalExists();
     prefillPaymentFields();
+
+    if (defaultPurpose) {
+      const purposeSelect = document.getElementById('payPurpose');
+      if (purposeSelect) purposeSelect.value = defaultPurpose;
+    }
+
+    if (defaultAmount) {
+      const amountInput = document.getElementById('payCustomAmount');
+      if (amountInput) amountInput.value = defaultAmount;
+    }
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
@@ -1099,7 +1110,15 @@ _Please review my profile details._`;
 
   // Global delegated click handler for payment modal triggers, close button, and backdrop
   document.addEventListener('click', (e) => {
-    // 1. Trigger button click
+    // 1. Order Resume Package trigger
+    const resumeTrigger = e.target.closest('#orderResumePackageBtn, .order-resume-trigger');
+    if (resumeTrigger) {
+      e.preventDefault();
+      window.openPaymentModal('Executive Resume Package', 10000);
+      return;
+    }
+
+    // 2. Pay Online Trigger
     const trigger = e.target.closest('.pay-online-trigger');
     if (trigger) {
       e.preventDefault();
@@ -1107,7 +1126,7 @@ _Please review my profile details._`;
       return;
     }
 
-    // 2. Close button click (Cross button)
+    // 3. Close button click (Cross button)
     const closeBtn = e.target.closest('.payment-modal-close, #closePaymentModalBtn');
     if (closeBtn) {
       e.preventDefault();
@@ -1115,7 +1134,7 @@ _Please review my profile details._`;
       return;
     }
 
-    // 3. Modal backdrop click
+    // 4. Modal backdrop click
     if (e.target.classList.contains('custom-payment-modal')) {
       window.closePaymentModal();
       return;

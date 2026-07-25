@@ -6,6 +6,8 @@
   <title>Complete Your Order | Dynamic Overseas Services</title>
   <meta name="description" content="Secure checkout page to complete your resume package order with Dynamic Overseas Services.">
   <link rel="icon" type="image/png" href="assets/premium_logo_transparent.png">
+  <link rel="stylesheet" href="styles.css?v=4.0">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -687,8 +689,8 @@
         </div>
 
         <div class="action-container" style="text-align: center; margin-top: 1.5rem;">
-          <button type="button" id="continueToPaymentBtn" class="btn-action" disabled onclick="goToPaymentScreen()">
-            <span>Continue to Payment</span>
+          <button type="button" id="continueToPaymentBtn" class="btn-action" disabled onclick="if(window.openPaymentModal){window.openPaymentModal('Executive Resume Package', 10000);}else{goToPaymentScreen();}">
+            <span>Proceed to Razorpay Payment</span>
             <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
         </div>
@@ -1027,5 +1029,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
+  <script src="script.js?v=2.7"></script>
 </body>
 </html>

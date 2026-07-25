@@ -1012,7 +1012,11 @@ _Please review my profile details._`;
               <div class="form-group-field span-full">
                 <label for="payPurpose">Payment Purpose *</label>
                 <select id="payPurpose" class="input-glass-box" required>
-                  <option value="Resume Package" selected>Resume Package</option>
+                  <option value="Consultation Fee">Consultation Fee</option>
+                  <option value="Visit Visa Documentation">Visit Visa Documentation</option>
+                  <option value="Work Visa Support">Work Visa Support</option>
+                  <option value="Resume Package">Resume Package</option>
+                  <option value="Other Service Charges">Other Service Charges</option>
                 </select>
               </div>
 

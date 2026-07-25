@@ -35,19 +35,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (hamburgerBtn && mobileNavOverlay) {
     const toggleMenu = () => {
-      hamburgerBtn.classList.toggle('active');
+      const isActive = hamburgerBtn.classList.toggle('active');
       mobileNavOverlay.classList.toggle('active');
-      document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
+      document.body.style.overflow = isActive ? 'hidden' : 'auto';
+      document.documentElement.style.overflow = isActive ? 'hidden' : 'auto';
     };
 
     hamburgerBtn.addEventListener('click', toggleMenu);
 
-    // Close menu when clicking links
+    // Close menu when clicking links & restore scroll
     mobileLinks.forEach(link => {
       link.addEventListener('click', () => {
         hamburgerBtn.classList.remove('active');
         mobileNavOverlay.classList.remove('active');
-        document.body.style.overflow = '';
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
       });
     });
   }

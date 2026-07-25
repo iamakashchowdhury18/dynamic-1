@@ -969,13 +969,94 @@ _Please review my profile details._`;
   // 15. RAZORPAY CUSTOM ONLINE PAYMENT GATEWAY INTEGRATION
   // ==========================================================================
   const RAZORPAY_KEY_ID = 'rzp_live_THgIUqskfj8CsO';
-  
-  const payModal = document.getElementById('customPaymentModal');
-  const closePayModalBtn = document.getElementById('closePaymentModalBtn');
-  const payForm = document.getElementById('customPaymentForm');
-  const payTriggers = document.querySelectorAll('.pay-online-trigger');
 
-  // Prefill modal fields if cached
+  // Dynamic Fail-Safe Modal Generator (guarantees modal exists on every page)
+  const ensurePaymentModalExists = () => {
+    let modal = document.getElementById('customPaymentModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.className = 'custom-payment-modal';
+      modal.id = 'customPaymentModal';
+      modal.setAttribute('aria-hidden', 'true');
+      modal.innerHTML = `
+        <div class="payment-modal-card glass-card">
+          <button type="button" class="payment-modal-close" id="closePaymentModalBtn" aria-label="Close Payment Modal">&times;</button>
+          
+          <div class="payment-modal-header">
+            <div class="pay-brand-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="#D4AF37"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            </div>
+            <h3>Online Payment Portal</h3>
+            <p class="pay-subtitle">Enter your details & custom amount below for instant payment via Razorpay.</p>
+          </div>
+
+          <form id="customPaymentForm">
+            <div class="payment-grid-fields">
+              <div class="form-group-field">
+                <label for="payCustomerName">Full Name *</label>
+                <input type="text" id="payCustomerName" class="input-glass-box" placeholder="Your Full Name" required>
+              </div>
+
+              <div class="form-group-field">
+                <label for="payCustomerPhone">Phone Number *</label>
+                <input type="tel" id="payCustomerPhone" class="input-glass-box" placeholder="+91 98765 43210" required>
+              </div>
+
+              <div class="form-group-field span-full">
+                <label for="payCustomerEmail">Email Address *</label>
+                <input type="email" id="payCustomerEmail" class="input-glass-box" placeholder="your.email@example.com" required>
+              </div>
+
+              <div class="form-group-field span-full">
+                <label for="payPurpose">Payment Purpose *</label>
+                <select id="payPurpose" class="input-glass-box" required>
+                  <option value="Consultation Fee">Consultation Fee</option>
+                  <option value="Visit Visa Documentation">Visit Visa Documentation</option>
+                  <option value="Work Visa Support">Work Visa Support</option>
+                  <option value="Executive Resume Package">Executive Resume Package</option>
+                  <option value="Other Service Charges">Other Service Charges</option>
+                </select>
+              </div>
+
+              <div class="form-group-field span-full">
+                <label for="payCustomAmount">Amount (INR ₹) *</label>
+                <div class="amount-input-wrapper">
+                  <span class="currency-symbol">₹</span>
+                  <input type="number" id="payCustomAmount" class="input-glass-box amount-input" min="1" step="any" placeholder="Enter amount (e.g. 500)" required>
+                </div>
+                <small class="amount-help-hint">Enter any custom amount as advised by your coordinator.</small>
+              </div>
+            </div>
+
+            <div class="payment-modal-footer">
+              <button type="submit" class="btn btn-gold-pay-submit" id="executePayBtn">
+                <span>Proceed to Pay</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              </button>
+            </div>
+
+            <div class="razorpay-badge-row">
+              <span>🔒 256-Bit SSL Encrypted | Powered by <strong>Razorpay</strong></span>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      
+      // Bind close events to newly created modal
+      const closeBtn = modal.querySelector('#closePaymentModalBtn');
+      if (closeBtn) closeBtn.addEventListener('click', closePaymentModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closePaymentModal();
+      });
+
+      // Bind form submit
+      const form = modal.querySelector('#customPaymentForm');
+      if (form) bindPaymentFormSubmit(form);
+    }
+    return modal;
+  };
+
   const prefillPaymentFields = () => {
     const cachedName = localStorage.getItem('dos_cached_name');
     const cachedPhone = localStorage.getItem('dos_cached_phone');
@@ -990,37 +1071,31 @@ _Please review my profile details._`;
     if (emailInput && cachedEmail) emailInput.value = cachedEmail;
   };
 
-  const openPaymentModal = () => {
-    if (!payModal) return;
+  window.openPaymentModal = () => {
+    const modal = ensurePaymentModalExists();
     prefillPaymentFields();
-    payModal.classList.add('active');
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
 
-  const closePaymentModal = () => {
-    if (!payModal) return;
-    payModal.classList.remove('active');
-    document.body.style.overflow = '';
+  window.closePaymentModal = () => {
+    const modal = document.getElementById('customPaymentModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   };
 
-  payTriggers.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  // Delegated document click listener for all Pay Online triggers
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.pay-online-trigger');
+    if (trigger) {
       e.preventDefault();
-      openPaymentModal();
-    });
+      window.openPaymentModal();
+    }
   });
 
-  if (closePayModalBtn) {
-    closePayModalBtn.addEventListener('click', closePaymentModal);
-  }
-
-  if (payModal) {
-    payModal.addEventListener('click', (e) => {
-      if (e.target === payModal) closePaymentModal();
-    });
-  }
-
-  if (payForm) {
+  const bindPaymentFormSubmit = (payForm) => {
     payForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -1035,15 +1110,12 @@ _Please review my profile details._`;
         return;
       }
 
-      // Cache details for future visits
       localStorage.setItem('dos_cached_name', name);
       localStorage.setItem('dos_cached_phone', phone);
       localStorage.setItem('dos_cached_email', email);
 
-      // Amount in paise (1 INR = 100 paise)
       const amountInPaise = Math.round(rawAmount * 100);
 
-      // Verify Razorpay SDK availability
       if (typeof Razorpay === 'undefined') {
         alert('Payment gateway is loading. Please check your internet connection and try again.');
         return;
@@ -1069,13 +1141,12 @@ _Please review my profile details._`;
           customer_name: name
         },
         handler: function (response) {
-          closePaymentModal();
+          window.closePaymentModal();
           
           const successMessage = `Payment Received Successfully!\n\nTransaction ID: ${response.razorpay_payment_id}\nAmount Paid: ₹${rawAmount.toLocaleString()}\nPurpose: ${purpose}\n\nOur service coordinator will send your official invoice & payment receipt within 1 hour.`;
           
           showSuccessModal('Payment Confirmed', successMessage);
 
-          // Save transaction lead to Supabase if client active
           if (supabaseClient) {
             supabaseClient
               .from('appointments')
@@ -1111,5 +1182,11 @@ _Please review my profile details._`;
         alert('Could not initialize Razorpay payment. Please try again.');
       }
     });
+  };
+
+  // Bind existing static form if present
+  const staticForm = document.getElementById('customPaymentForm');
+  if (staticForm) {
+    bindPaymentFormSubmit(staticForm);
   }
 });

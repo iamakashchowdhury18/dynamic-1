@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" href="assets/premium_logo_transparent.png">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css?v=3.9">
+  <link rel="stylesheet" href="styles.css?v=4.0">
   <!-- Razorpay Checkout SDK -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -1703,6 +1703,14 @@
             </div>
             <small class="amount-help-hint">Enter any custom amount as advised by your coordinator.</small>
           </div>
+
+          <!-- Terms & Policy Agreement Checkbox -->
+          <div class="form-group-field span-full payment-terms-checkbox-group">
+            <label class="terms-checkbox-label">
+              <input type="checkbox" id="payTermsAgree" class="payment-terms-checkbox" required>
+              <span class="terms-text">I acknowledge and agree to the <a href="terms.html" target="_blank">Terms & Conditions</a>, <a href="refund.html" target="_blank">Refund Policy</a>, and <a href="disclaimer.html" target="_blank">Legal Disclaimer</a>. *</span>
+            </label>
+          </div>
         </div>
 
         <div class="payment-modal-footer">
@@ -1721,6 +1729,6 @@
 
   <!-- Javascript Logic -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="script.js?v=2.6"></script>
+  <script src="script.js?v=2.7"></script>
 </body>
 </html>

@@ -1028,6 +1028,14 @@ _Please review my profile details._`;
                 </div>
                 <small class="amount-help-hint">Enter any custom amount as advised by your coordinator.</small>
               </div>
+
+              <!-- Terms & Policy Agreement Checkbox -->
+              <div class="form-group-field span-full payment-terms-checkbox-group">
+                <label class="terms-checkbox-label">
+                  <input type="checkbox" id="payTermsAgree" class="payment-terms-checkbox" required>
+                  <span class="terms-text">I acknowledge and agree to the <a href="terms.html" target="_blank">Terms & Conditions</a>, <a href="refund.html" target="_blank">Refund Policy</a>, and <a href="disclaimer.html" target="_blank">Legal Disclaimer</a>. *</span>
+                </label>
+              </div>
             </div>
 
             <div class="payment-modal-footer">
@@ -1130,9 +1138,15 @@ _Please review my profile details._`;
       const email = document.getElementById('payCustomerEmail').value.trim();
       const purpose = document.getElementById('payPurpose').value;
       const rawAmount = parseFloat(document.getElementById('payCustomAmount').value);
+      const termsAgreeBox = document.getElementById('payTermsAgree');
 
       if (!name || !phone || !email || isNaN(rawAmount) || rawAmount <= 0) {
         alert('Please fill in all required payment details and enter a valid custom amount.');
+        return;
+      }
+
+      if (termsAgreeBox && !termsAgreeBox.checked) {
+        alert('Please acknowledge and check the Terms & Conditions and Cancellation Policy checkbox before proceeding with payment.');
         return;
       }
 

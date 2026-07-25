@@ -1082,8 +1082,9 @@ _Please review my profile details._`;
     const modal = document.getElementById('customPaymentModal');
     if (modal) {
       modal.classList.remove('active');
-      document.body.style.overflow = '';
     }
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
   };
 
   // Delegated document click listener for all Pay Online triggers

@@ -1081,18 +1081,40 @@ _Please review my profile details._`;
     if (emailInput && cachedEmail) emailInput.value = cachedEmail;
   };
 
-  window.openPaymentModal = (defaultPurpose, defaultAmount) => {
+  const ALL_PURPOSE_OPTIONS = `
+    <option value="Consultation Fee">Consultation Fee</option>
+    <option value="Visit Visa Documentation">Visit Visa Documentation</option>
+    <option value="Work Visa Support">Work Visa Support</option>
+    <option value="Resume Package">Resume Package</option>
+    <option value="Other Service Charges">Other Service Charges</option>
+  `;
+
+  const RESUME_ONLY_OPTION = `
+    <option value="Resume Package" selected>Resume Package</option>
+  `;
+
+  window.openPaymentModal = (defaultPurpose, defaultAmount, isResumeOnly = false) => {
     const modal = ensurePaymentModalExists();
     prefillPaymentFields();
 
-    if (defaultPurpose) {
-      const purposeSelect = document.getElementById('payPurpose');
-      if (purposeSelect) purposeSelect.value = defaultPurpose;
+    const purposeSelect = document.getElementById('payPurpose');
+    if (purposeSelect) {
+      if (isResumeOnly || defaultPurpose === 'Resume Package') {
+        purposeSelect.innerHTML = RESUME_ONLY_OPTION;
+        purposeSelect.value = 'Resume Package';
+      } else {
+        purposeSelect.innerHTML = ALL_PURPOSE_OPTIONS;
+        if (defaultPurpose) {
+          purposeSelect.value = defaultPurpose;
+        }
+      }
     }
 
-    if (defaultAmount) {
-      const amountInput = document.getElementById('payCustomAmount');
-      if (amountInput) amountInput.value = defaultAmount;
+    const amountInput = document.getElementById('payCustomAmount');
+    if (amountInput) {
+      if (defaultAmount) {
+        amountInput.value = defaultAmount;
+      }
     }
 
     modal.classList.add('active');
@@ -1114,7 +1136,7 @@ _Please review my profile details._`;
     const resumeTrigger = e.target.closest('#orderResumePackageBtn, .order-resume-trigger');
     if (resumeTrigger) {
       e.preventDefault();
-      window.openPaymentModal('Resume Package', 10000);
+      window.openPaymentModal('Resume Package', 10000, true);
       return;
     }
 

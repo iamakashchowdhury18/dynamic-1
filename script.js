@@ -1087,12 +1087,35 @@ _Please review my profile details._`;
     document.documentElement.style.overflow = 'auto';
   };
 
-  // Delegated document click listener for all Pay Online triggers
+  // Global delegated click handler for payment modal triggers, close button, and backdrop
   document.addEventListener('click', (e) => {
+    // 1. Trigger button click
     const trigger = e.target.closest('.pay-online-trigger');
     if (trigger) {
       e.preventDefault();
       window.openPaymentModal();
+      return;
+    }
+
+    // 2. Close button click (Cross button)
+    const closeBtn = e.target.closest('.payment-modal-close, #closePaymentModalBtn');
+    if (closeBtn) {
+      e.preventDefault();
+      window.closePaymentModal();
+      return;
+    }
+
+    // 3. Modal backdrop click
+    if (e.target.classList.contains('custom-payment-modal')) {
+      window.closePaymentModal();
+      return;
+    }
+  });
+
+  // ESC key to close modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closePaymentModal();
     }
   });
 

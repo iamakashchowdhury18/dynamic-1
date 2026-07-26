@@ -1219,7 +1219,9 @@ _Please review my profile details._`;
         },
         notes: {
           payment_purpose: purpose,
-          customer_name: name
+          customer_name: name,
+          legal_terms_agreed: 'YES (Agreed to Terms, Refund Policy & Legal Disclaimer)',
+          agreed_timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
         },
         handler: function (response) {
           window.closePaymentModal();

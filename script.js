@@ -1177,9 +1177,11 @@ _Please review my profile details._`;
         .from('resume_orders')
         .insert([{
           full_name: paymentData.name,
+          email: paymentData.email,
           mobile: paymentData.phone,
           country: 'Online Payment Portal',
-          notes: `Email: ${paymentData.email} | Purpose: ${paymentData.purpose} | Payment ID: ${paymentData.paymentId} | Legal Consent: YES (Agreed to Terms, Refund Policy & Disclaimer)`,
+          target_position: paymentData.purpose,
+          notes: `Payment ID: ${paymentData.paymentId} | Legal Consent: YES (Agreed to Terms, Refund Policy & Legal Disclaimer)`,
           amount: paymentData.amount,
           status: paymentData.paymentId && paymentData.paymentId.startsWith('pay_') ? 'paid' : 'initiated'
         }]);

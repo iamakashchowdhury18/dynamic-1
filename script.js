@@ -1170,6 +1170,29 @@ _Please review my profile details._`;
     }
   });
 
+  const savePaymentToSupabase = async (paymentData) => {
+    if (!supabaseClient) return;
+    try {
+      const { error } = await supabaseClient
+        .from('appointments')
+        .insert([{
+          full_name: paymentData.name,
+          phone_number: paymentData.phone,
+          email_address: paymentData.email,
+          country: 'Online Payment Portal',
+          service_required: paymentData.purpose,
+          message: `Razorpay Payment Completed. Amount: ₹${paymentData.amount}, Payment ID: ${paymentData.paymentId}, Legal Consent: YES (Agreed to Terms, Refund Policy & Disclaimer)`
+        }]);
+      if (error) {
+        console.error('Error saving payment record to Supabase:', error.message);
+      } else {
+        console.log('Payment lead saved to Supabase successfully!');
+      }
+    } catch (err) {
+      console.error('Failed to execute Supabase insert query:', err);
+    }
+  };
+
   const bindPaymentFormSubmit = (payForm) => {
     payForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -1202,6 +1225,16 @@ _Please review my profile details._`;
         return;
       }
 
+      // Save initial customer lead to Supabase before gateway opens
+      savePaymentToSupabase({
+        name: name,
+        phone: phone,
+        email: email,
+        purpose: purpose,
+        amount: rawAmount,
+        paymentId: 'Initiated (Awaiting Gateway Completion)'
+      });
+
       const options = {
         key: RAZORPAY_KEY_ID,
         amount: amountInPaise,
@@ -1230,22 +1263,15 @@ _Please review my profile details._`;
           
           showSuccessModal('Payment Confirmed', successMessage);
 
-          if (supabaseClient) {
-            supabaseClient
-              .from('appointments')
-              .insert([{
-                full_name: name,
-                phone_number: phone,
-                email_address: email,
-                country: 'Online Payment',
-                service_required: purpose,
-                message: `Razorpay Payment Completed. Amount: ₹${rawAmount}, Payment ID: ${response.razorpay_payment_id}`
-              }])
-              .then(({ error }) => {
-                if (error) console.error('Error saving payment record to Supabase:', error.message);
-                else console.log('Payment lead saved to Supabase!');
-              });
-          }
+          // Save confirmed transaction to Supabase
+          savePaymentToSupabase({
+            name: name,
+            phone: phone,
+            email: email,
+            purpose: purpose,
+            amount: rawAmount,
+            paymentId: response.razorpay_payment_id
+          });
         },
         modal: {
           ondismiss: function () {

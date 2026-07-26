@@ -1174,22 +1174,22 @@ _Please review my profile details._`;
     if (!supabaseClient) return;
     try {
       const { error } = await supabaseClient
-        .from('appointments')
+        .from('resume_orders')
         .insert([{
           full_name: paymentData.name,
-          phone_number: paymentData.phone,
-          email_address: paymentData.email,
+          mobile: paymentData.phone,
           country: 'Online Payment Portal',
-          service_required: paymentData.purpose,
-          message: `Razorpay Payment Completed. Amount: ₹${paymentData.amount}, Payment ID: ${paymentData.paymentId}, Legal Consent: YES (Agreed to Terms, Refund Policy & Disclaimer)`
+          notes: `Email: ${paymentData.email} | Purpose: ${paymentData.purpose} | Payment ID: ${paymentData.paymentId} | Legal Consent: YES (Agreed to Terms, Refund Policy & Disclaimer)`,
+          amount: paymentData.amount,
+          status: paymentData.paymentId && paymentData.paymentId.startsWith('pay_') ? 'paid' : 'initiated'
         }]);
       if (error) {
-        console.error('Error saving payment record to Supabase:', error.message);
+        console.error('Error saving payment record to Supabase resume_orders table:', error.message);
       } else {
-        console.log('Payment lead saved to Supabase successfully!');
+        console.log('Payment record saved to Supabase resume_orders table successfully!');
       }
     } catch (err) {
-      console.error('Failed to execute Supabase insert query:', err);
+      console.error('Failed to execute Supabase resume_orders insert query:', err);
     }
   };
 

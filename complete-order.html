@@ -689,7 +689,7 @@
         </div>
 
         <div class="action-container" style="text-align: center; margin-top: 1.5rem;">
-          <button type="button" id="continueToPaymentBtn" class="btn-action" disabled onclick="if(window.openPaymentModal){window.openPaymentModal('Resume Package', 10000, true);}else{goToPaymentScreen();}">
+          <button type="button" id="continueToPaymentBtn" class="btn-action" disabled onclick="if(window.openPaymentModal){window.openPaymentModal('Resume Package', 5000, true);}else{goToPaymentScreen();}">
             <span>Proceed to Razorpay Payment</span>
             <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
@@ -977,7 +977,7 @@
               notes: document.getElementById('notes').value.trim(),
               resume_url: finalResumeUrl,
               screenshot_url: finalScreenshotUrl,
-              amount: 10000,
+              amount: 5000,
               status: 'pending_verification'
             }]);
           if (error) throw error;
@@ -1029,6 +1029,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
-  <script src="script.js?v=3.1"></script>
+  <script src="script.js?v=3.2"></script>
 </body>
 </html>

@@ -1136,7 +1136,7 @@ _Please review my profile details._`;
     const resumeTrigger = e.target.closest('#orderResumePackageBtn, .order-resume-trigger');
     if (resumeTrigger) {
       e.preventDefault();
-      window.openPaymentModal('Resume Package', 10000, true);
+      window.openPaymentModal('Resume Package', 5000, true);
       return;
     }
 
